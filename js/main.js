@@ -66,4 +66,4 @@ var fragment = document.createDocumentFragment();
 
 rentalAds.forEach(function (element) {
   fragment.appendChild(renderWizard(element));
-};
+});
