@@ -46,12 +46,12 @@ var getRentalAds = function () {
   }
 };
 
-var renderMapIn = function (rentalAds) {
+var renderMapIn = function (rent) {
   var rentalAdsElement = similarMapInTemplate.cloneNode(true);
 
-  rentalAdsElement.querySelector('img').style.fill = 'left: ' + rentalAds.location.x + 'px; top: ' + rentalAds.location.y;
-  rentalAdsElement.querySelector('img').src = rentalAds.author.avatar;
-  rentalAdsElement.querySelector('img').alt = rentalAds.offer.title;
+  rentalAdsElement.querySelector('img').style.fill = 'left: ' + rent.location.x + 'px; top: ' + rent.location.y;
+  rentalAdsElement.querySelector('img').src = rent.author.avatar;
+  rentalAdsElement.querySelector('img').alt = rent.offer.title;
 
   return rentalAdsElement;
 };
@@ -65,5 +65,5 @@ getRentalAds();
 var fragment = document.createDocumentFragment();
 
 rentalAds.forEach(function (element) {
-  fragment.appendChild(renderWizard(element));
+  fragment.appendChild(renderMapIn(element));
 });
