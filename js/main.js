@@ -34,7 +34,7 @@ var similarMapInTemplate = document.querySelector('#pin').content.querySelector(
 
 var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
-}
+};
 
 var getRentalAds = function () {
   var rentalAds = [];
@@ -67,13 +67,13 @@ var getRentalAds = function () {
   return rentalAds;
 };
 
-var assignValuesElement = function(rentalAdsElement, pin) {
+var assignValuesElement = function (rentalAdsElement, pin) {
   var location = pin.location;
 
   rentalAdsElement.style = 'left: ' + location.x + 'px; top: ' + location.y + 'px';
   rentalAdsElement.querySelector('img').src = pin.author.avatar;
   rentalAdsElement.querySelector('img').alt = pin.offer.title;
-}
+};
 
 var renderMapIn = function (pin) {
   var rentalAdsElement = similarMapInTemplate.cloneNode(true);
@@ -91,7 +91,7 @@ var showRentalAds = function () {
   });
 
   similarListElement.appendChild(fragment);
-}
+};
 
 var rentalAds = getRentalAds();
 
