@@ -8,6 +8,9 @@ var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var DESCRIPTION = ['in the city center, near the metro, on the ground floor of the cafe',
   'near the park, there is where to walk the dogs, near a supermarket',
   'sleeping area of the city, next to a cinema, overlooking the courtyard'];
+var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var MAP_WIDTH = 1200;
 var MAP_HEIGHT = 535;
 var MAPIN_WIDTH = 50;
@@ -18,7 +21,7 @@ var ROOMS_MAX = 5;
 var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
 
-var getRandom = function (max, including = 0, min = 0) {
+var getRandom = function (max, including=0, min=0) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
 };
 
@@ -52,9 +55,7 @@ var getRentalAds = function () {
         'chekout': CHECK_OUT[getRandom(CHECK_OUT.length, 1)],
         'features': FEATURES[getRandom(FEATURES.length, 1)],
         'description': DESCRIPTION[getRandom(DESCRIPTION.length, 1)],
-        'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-          'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-          'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
+        'photos': PHOTOS[getRandom(PHOTOS.length, 1)]
       },
       'location': {
         'x': getRandom(MAP_WIDTH) - MAPIN_WIDTH / 2,
