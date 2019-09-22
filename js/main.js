@@ -21,7 +21,7 @@ var ROOMS_MAX = 5;
 var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
 
-var getRandom = function (max, including=0, min=0) {
+var getRandom = function (max, including, min) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
 };
 
@@ -46,20 +46,20 @@ var getRentalAds = function () {
       },
       'offer': {
         'title': 'Apartment Nr ' + i,
-        'address': getRandom(MAP_WIDTH) + ', ' + getRandom(MAP_HEIGHT),
-        'price': getRandom(PRICE_MAX),
-        'type': TYPE_APARTMENTS[getRandom(TYPE_APARTMENTS.length, 1)],
-        'rooms': getRandom(ROOMS_MAX),
-        'guests': getRandom(GUESTS_MAX),
-        'chekin': CHECK_IN[getRandom(CHECK_IN.length, 1)],
-        'chekout': CHECK_OUT[getRandom(CHECK_OUT.length, 1)],
-        'features': FEATURES[getRandom(FEATURES.length, 1)],
-        'description': DESCRIPTION[getRandom(DESCRIPTION.length, 1)],
-        'photos': PHOTOS[getRandom(PHOTOS.length, 1)]
+        'address': getRandom(MAP_WIDTH, 0, 0) + ', ' + getRandom(MAP_HEIGHT, 0, 0),
+        'price': getRandom(PRICE_MAX, 0, 0),
+        'type': TYPE_APARTMENTS[getRandom(TYPE_APARTMENTS.length, 1, 0)],
+        'rooms': getRandom(ROOMS_MAX, 0, 0),
+        'guests': getRandom(GUESTS_MAX, 0, 0),
+        'chekin': CHECK_IN[getRandom(CHECK_IN.length, 1, 0)],
+        'chekout': CHECK_OUT[getRandom(CHECK_OUT.length, 1, 0)],
+        'features': FEATURES[getRandom(FEATURES.length, 1, 0)],
+        'description': DESCRIPTION[getRandom(DESCRIPTION.length, 1, 0)],
+        'photos': PHOTOS[getRandom(PHOTOS.length, 1, 0)]
       },
       'location': {
-        'x': getRandom(MAP_WIDTH) - MAPIN_WIDTH / 2,
-        'y': getRandom(MAP_HEIGHT) - MAPIN_HEIGHT + SKY_WIDTH
+        'x': getRandom(MAP_WIDTH, 0, 0) - MAPIN_WIDTH / 2,
+        'y': getRandom(MAP_HEIGHT, 0, 0) - MAPIN_HEIGHT + SKY_WIDTH
       }
     });
   }
