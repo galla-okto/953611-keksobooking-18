@@ -36,49 +36,50 @@ var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
 };
 
+var createRentalAd = function (index) {
+  var RentalAd = {
+    'author': {
+      'avatar': getAvatar(index)
+    },
+    'offer': {
+      'title': 'Apartment Nr ' + index,
+      'address': getRandom(MAP_WIDTH, 0, 0) + ', ' + getRandom(MAP_HEIGHT, 0, 0),
+      'price': getRandom(PRICE_MAX, 0, 0),
+      'type': TYPE_APARTMENTS[getRandom(TYPE_APARTMENTS.length, 1, 0)],
+      'rooms': getRandom(ROOMS_MAX, 0, 0),
+      'guests': getRandom(GUESTS_MAX, 0, 0),
+      'chekin': CHECK_IN[getRandom(CHECK_IN.length, 1, 0)],
+      'chekout': CHECK_OUT[getRandom(CHECK_OUT.length, 1, 0)],
+      'features': FEATURES[getRandom(FEATURES.length, 1, 0)],
+      'description': DESCRIPTION[getRandom(DESCRIPTION.length, 1, 0)],
+      'photos': PHOTOS[getRandom(PHOTOS.length, 1, 0)]
+    },
+    'location': {
+      'x': getRandom(MAP_WIDTH, 0, 0) - MAPIN_WIDTH / 2,
+      'y': getRandom(MAP_HEIGHT, 0, 0) - MAPIN_HEIGHT + SKY_WIDTH
+    }
+  };
+  return RentalAd;
+}
+
 var getRentalAds = function () {
   var rentalAds = [];
 
   for (var i = 1; i <= RENTAL_ADS_QUANTITY; i++) {
-    rentalAds.push({
-      'author': {
-        'avatar': getAvatar(i)
-      },
-      'offer': {
-        'title': 'Apartment Nr ' + i,
-        'address': getRandom(MAP_WIDTH, 0, 0) + ', ' + getRandom(MAP_HEIGHT, 0, 0),
-        'price': getRandom(PRICE_MAX, 0, 0),
-        'type': TYPE_APARTMENTS[getRandom(TYPE_APARTMENTS.length, 1, 0)],
-        'rooms': getRandom(ROOMS_MAX, 0, 0),
-        'guests': getRandom(GUESTS_MAX, 0, 0),
-        'chekin': CHECK_IN[getRandom(CHECK_IN.length, 1, 0)],
-        'chekout': CHECK_OUT[getRandom(CHECK_OUT.length, 1, 0)],
-        'features': FEATURES[getRandom(FEATURES.length, 1, 0)],
-        'description': DESCRIPTION[getRandom(DESCRIPTION.length, 1, 0)],
-        'photos': PHOTOS[getRandom(PHOTOS.length, 1, 0)]
-      },
-      'location': {
-        'x': getRandom(MAP_WIDTH, 0, 0) - MAPIN_WIDTH / 2,
-        'y': getRandom(MAP_HEIGHT, 0, 0) - MAPIN_HEIGHT + SKY_WIDTH
-      }
-    });
+    rentalAds.push(createRentalAd(i));
   }
 
   return rentalAds;
 };
 
-var assignValuesElement = function (rentalAdsElement, pin) {
-  var location = pin.location;
-
-  rentalAdsElement.style = 'left: ' + location.x + 'px; top: ' + location.y + 'px';
-  rentalAdsElement.querySelector('img').src = pin.author.avatar;
-  rentalAdsElement.querySelector('img').alt = pin.offer.title;
-};
-
 var renderMapIn = function (pin) {
   var rentalAdsElement = similarMapInTemplate.cloneNode(true);
 
-  assignValuesElement(rentalAdsElement, pin);
+  var imgAds = rentalAdsElement.querySelector('img');
+
+  rentalAdsElement.style = 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
+  imgAds.src = pin.author.avatar;
+  imgAds.alt = pin.offer.title;
 
   return rentalAdsElement;
 };
