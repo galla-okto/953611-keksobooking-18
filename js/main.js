@@ -60,7 +60,7 @@ var createRentalAd = function (index) {
     }
   };
   return RentalAd;
-}
+};
 
 var getRentalAds = function () {
   var rentalAds = [];
