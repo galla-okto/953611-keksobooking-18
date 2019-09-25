@@ -32,12 +32,14 @@ var similarListElement = userDialog.querySelector('.map__pins');
 
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 
+var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+
 var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
 };
 
 var createRentalAd = function (index) {
-  var RentalAd = {
+  return {
     'author': {
       'avatar': getAvatar(index)
     },
@@ -59,7 +61,6 @@ var createRentalAd = function (index) {
       'y': getRandom(MAP_HEIGHT, 0, 0) - MAPIN_HEIGHT + SKY_WIDTH
     }
   };
-  return RentalAd;
 };
 
 var getRentalAds = function () {
@@ -72,12 +73,16 @@ var getRentalAds = function () {
   return rentalAds;
 };
 
+var getCoordinates = function (pin) {
+  return 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
+};
+
 var renderMapIn = function (pin) {
   var rentalAdsElement = similarMapInTemplate.cloneNode(true);
 
   var imgAds = rentalAdsElement.querySelector('img');
 
-  rentalAdsElement.style = 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
+  rentalAdsElement.style = getCoordinates(pin);
   imgAds.src = pin.author.avatar;
   imgAds.alt = pin.offer.title;
 
@@ -97,3 +102,13 @@ var showRentalAds = function () {
 var rentalAds = getRentalAds();
 
 showRentalAds();
+
+var mapCardElement = similarMapCardTemplate.cloneNode(true);
+
+var offer = rentalAds[0].offer;
+
+mapCardElement.querySelector('.popup__title').textcontent = offer.title;
+mapCardElement.querySelector('.popup__text--address').textcontent = offer.address;
+mapCardElement.querySelector('.popup__text--price').textcontent = offer.price;
+
+similarListElement.insertAdjacentElement('afterend', mapCardElement);
