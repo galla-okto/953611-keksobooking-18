@@ -120,11 +120,19 @@ var showRentalAds = function () {
 };
 
 var getTypeHouse = function (typeHouse) {
-  if (typeHouse === TYPE_APARTMENTS[1]) { return 'Квартира'; }
-  else if (typeHouse === TYPE_APARTMENTS[3]) { return 'Бунгало'; }
-  else if (typeHouse === TYPE_APARTMENTS[2]) { return 'Дом'; }
-  else if (typeHouse === TYPE_APARTMENTS[0]) { return 'Дворец'; }
-  else return 'не известно';
+  if (typeHouse === TYPE_APARTMENTS[1]) {
+    return 'Квартира';
+  }
+  else if (typeHouse === TYPE_APARTMENTS[3]) {
+    return 'Бунгало';
+  }
+  else if (typeHouse === TYPE_APARTMENTS[2]) {
+    return 'Дом';
+  }
+  else if (typeHouse === TYPE_APARTMENTS[0]) {
+    return 'Дворец';
+  }
+  else { return 'не известно'; }
 };
 
 var getRoomsAndGuests = function (rooms, guests) {
