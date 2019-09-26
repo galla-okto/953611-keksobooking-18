@@ -38,6 +38,26 @@ var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
 };
 
+var getArrayFeatures = function (quantity) {
+  var features = [];
+
+  for (var i = 0; i < quantity; i++) {
+    features.push(FEATURES[i]);
+  }
+
+  return features;
+}
+
+var getArrayPhotos = function (quantity) {
+  var photos = [];
+
+  for (var i = 0; i < quantity; i++) {
+    photos.push(PHOTOS[i]);
+  }
+
+  return photos;
+}
+
 var createRentalAd = function (index) {
   return {
     'author': {
@@ -50,11 +70,11 @@ var createRentalAd = function (index) {
       'type': TYPE_APARTMENTS[getRandom(TYPE_APARTMENTS.length, 1, 0)],
       'rooms': getRandom(ROOMS_MAX, 0, 0),
       'guests': getRandom(GUESTS_MAX, 0, 0),
-      'chekin': CHECK_IN[getRandom(CHECK_IN.length, 1, 0)],
-      'chekout': CHECK_OUT[getRandom(CHECK_OUT.length, 1, 0)],
-      'features': FEATURES[getRandom(FEATURES.length, 1, 0)],
+      'checkin': CHECK_IN[getRandom(CHECK_IN.length, 1, 0)],
+      'checkout': CHECK_OUT[getRandom(CHECK_OUT.length, 1, 0)],
+      'features': getArrayFeatures(getRandom(FEATURES.length, 1, 0)),
       'description': DESCRIPTION[getRandom(DESCRIPTION.length, 1, 0)],
-      'photos': PHOTOS[getRandom(PHOTOS.length, 1, 0)]
+      'photos': getArrayPhotos(getRandom(PHOTOS.length, 1, 0))
     },
     'location': {
       'x': getRandom(MAP_WIDTH, 0, 0) - MAPIN_WIDTH / 2,
@@ -99,6 +119,57 @@ var showRentalAds = function () {
   similarListElement.appendChild(fragment);
 };
 
+var getTypeHouse = function (typeHouse) {
+  if (typeHouse === TYPE_APARTMENTS[1]) { return "Квартира";}
+  else if (typeHouse === TYPE_APARTMENTS[3]) { return "Бунгало";}
+  else if (typeHouse === TYPE_APARTMENTS[2]) { return "Дом";}
+  else if (typeHouse === TYPE_APARTMENTS[0]) { return "Дворец";}
+  else return "не известно";
+};
+
+var getRoomsAndGuests = function (rooms, guests) {
+  return rooms + " комнаты для " + guests + " гостей";
+};
+
+var getCheckInAndOut = function (checkin, checkout) {
+  return "Заезд после " + checkin + ", выезд до " + checkout;
+};
+
+var fillMapCard = function (mapCardElement, offer) {
+  mapCardElement.querySelector('.popup__title').textContent = offer.title;
+  mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
+  mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + "&#8381/ночь";
+  mapCardElement.querySelector('.popup__type').textContent = getTypeHouse(offer.type);
+
+  mapCardElement.querySelector('.popup__text--capacity').textContent = getRoomsAndGuests(offer.rooms, offer.guests);
+  mapCardElement.querySelector('.popup__text--time').textContent = getCheckInAndOut(offer.checkin, offer.checkout);
+
+  var feature = mapCardElement.querySelector('.popup__features');
+  var features = mapCardElement.querySelectorAll('.popup__feature');
+  var children = feature.children;
+
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i];
+    var str = child.className.substr(child.className.lastIndexOf("-") + 1);
+
+    if (offer.features.indexOf(str) === -1) {
+      feature.removeChild(features[i]);
+    }
+  }
+
+  mapCardElement.querySelector('.popup__description').textContent = offer.description;
+
+  var photos = mapCardElement.querySelector('.popup__photos');
+  var photo = mapCardElement.querySelector('.popup__photo');
+
+  offer.photos.forEach(function (element) {
+    photo.src = element;
+    photos.appendChild(photo);
+  });
+
+  mapCardElement.querySelector('.popup__avatar').src = rentalAds[0].author.avatar;
+};
+
 var rentalAds = getRentalAds();
 
 showRentalAds();
@@ -107,8 +178,6 @@ var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var offer = rentalAds[0].offer;
 
-mapCardElement.querySelector('.popup__title').textcontent = offer.title;
-mapCardElement.querySelector('.popup__text--address').textcontent = offer.address;
-mapCardElement.querySelector('.popup__text--price').textcontent = offer.price;
+fillMapCard(mapCardElement, offer);
 
 similarListElement.insertAdjacentElement('afterend', mapCardElement);
