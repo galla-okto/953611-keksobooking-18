@@ -130,9 +130,9 @@ var getTypeHouse = function (typeHouse) {
     return 'Дом';
   }
   else if (typeHouse === TYPE_APARTMENTS[0]) {
-    return 'Дворец';
-  }
-  else { return 'не известно'; }
+    return 'Дворец'; }
+  else {
+    return 'не известно'; }
 };
 
 var getRoomsAndGuests = function (rooms, guests) {
