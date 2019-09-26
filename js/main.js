@@ -46,7 +46,7 @@ var getArrayFeatures = function (quantity) {
   }
 
   return features;
-}
+};
 
 var getArrayPhotos = function (quantity) {
   var photos = [];
@@ -56,7 +56,7 @@ var getArrayPhotos = function (quantity) {
   }
 
   return photos;
-}
+};
 
 var createRentalAd = function (index) {
   return {
@@ -120,25 +120,25 @@ var showRentalAds = function () {
 };
 
 var getTypeHouse = function (typeHouse) {
-  if (typeHouse === TYPE_APARTMENTS[1]) { return "Квартира";}
-  else if (typeHouse === TYPE_APARTMENTS[3]) { return "Бунгало";}
-  else if (typeHouse === TYPE_APARTMENTS[2]) { return "Дом";}
-  else if (typeHouse === TYPE_APARTMENTS[0]) { return "Дворец";}
-  else return "не известно";
+  if (typeHouse === TYPE_APARTMENTS[1]) { return 'Квартира'; }
+  else if (typeHouse === TYPE_APARTMENTS[3]) { return 'Бунгало'; }
+  else if (typeHouse === TYPE_APARTMENTS[2]) { return 'Дом'; }
+  else if (typeHouse === TYPE_APARTMENTS[0]) { return 'Дворец'; }
+  else return 'не известно';
 };
 
 var getRoomsAndGuests = function (rooms, guests) {
-  return rooms + " комнаты для " + guests + " гостей";
+  return rooms + ' комнаты для ' + guests + ' гостей';
 };
 
 var getCheckInAndOut = function (checkin, checkout) {
-  return "Заезд после " + checkin + ", выезд до " + checkout;
+  return 'Заезд после ' + checkin + ', выезд до ' + checkout;
 };
 
 var fillMapCard = function (mapCardElement, offer) {
   mapCardElement.querySelector('.popup__title').textContent = offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
-  mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + "&#8381/ночь";
+  mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + '&#8381/ночь';
   mapCardElement.querySelector('.popup__type').textContent = getTypeHouse(offer.type);
 
   mapCardElement.querySelector('.popup__text--capacity').textContent = getRoomsAndGuests(offer.rooms, offer.guests);
@@ -150,7 +150,7 @@ var fillMapCard = function (mapCardElement, offer) {
 
   for (var i = 0; i < children.length; i++) {
     var child = children[i];
-    var str = child.className.substr(child.className.lastIndexOf("-") + 1);
+    var str = child.className.substr(child.className.lastIndexOf('-') + 1);
 
     if (offer.features.indexOf(str) === -1) {
       feature.removeChild(features[i]);
