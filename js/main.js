@@ -122,16 +122,13 @@ var showRentalAds = function () {
 var getTypeHouse = function (typeHouse) {
   if (typeHouse === TYPE_APARTMENTS[1]) {
     return 'Квартира';
-  }
-  else if (typeHouse === TYPE_APARTMENTS[3]) {
+  } else if (typeHouse === TYPE_APARTMENTS[3]) {
     return 'Бунгало';
-  }
-  else if (typeHouse === TYPE_APARTMENTS[2]) {
+  } else if (typeHouse === TYPE_APARTMENTS[2]) {
     return 'Дом';
-  }
-  else if (typeHouse === TYPE_APARTMENTS[0]) {
-    return 'Дворец'; }
-  else {
+  } else if (typeHouse === TYPE_APARTMENTS[0]) {
+    return 'Дворец';
+  } else {
     return 'не известно'; }
 };
 
