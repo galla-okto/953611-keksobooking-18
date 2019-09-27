@@ -2,6 +2,12 @@
 
 var RENTAL_ADS_QUANTITY = 8;
 var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
+var TYPE_OBJ_APARTMENTS = {
+  BUNGALO: 'Bungalo',
+  HOUSE: 'House',
+  PALACE: 'Palace',
+  FLAT: 'Flat'
+};
 var CHECK_IN = ['12:00', '13:00', '14:00'];
 var CHECK_OUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -33,6 +39,8 @@ var similarListElement = userDialog.querySelector('.map__pins');
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+
+var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
@@ -120,17 +128,7 @@ var showRentalAds = function () {
 };
 
 var getTypeHouse = function (typeHouse) {
-  if (typeHouse === TYPE_APARTMENTS[1]) {
-    return 'Квартира';
-  } else if (typeHouse === TYPE_APARTMENTS[3]) {
-    return 'Бунгало';
-  } else if (typeHouse === TYPE_APARTMENTS[2]) {
-    return 'Дом';
-  } else if (typeHouse === TYPE_APARTMENTS[0]) {
-    return 'Дворец';
-  } else {
-    return 'не известно';
-  }
+  return TYPE_OBJ_APARTMENTS[typeHouse.toUpperCase()];
 };
 
 var getRoomsAndGuests = function (rooms, guests) {
@@ -141,7 +139,11 @@ var getCheckInAndOut = function (checkin, checkout) {
   return 'Заезд после ' + checkin + ', выезд до ' + checkout;
 };
 
-var fillMapCard = function (mapCardElement, offer) {
+var getDescription = function (description) {
+  return description;
+};
+
+var fillMapCardSimpleText = function () {
   mapCardElement.querySelector('.popup__title').textContent = offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
   mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + '&#8381/ночь';
@@ -149,7 +151,12 @@ var fillMapCard = function (mapCardElement, offer) {
 
   mapCardElement.querySelector('.popup__text--capacity').textContent = getRoomsAndGuests(offer.rooms, offer.guests);
   mapCardElement.querySelector('.popup__text--time').textContent = getCheckInAndOut(offer.checkin, offer.checkout);
+  mapCardElement.querySelector('.popup__description').textContent = getDescription(offer.description);
 
+  mapCardElement.querySelector('.popup__avatar').src = rentalAds[0].author.avatar;
+};
+
+var fillMapCardFeatures = function () {
   var feature = mapCardElement.querySelector('.popup__features');
   var features = mapCardElement.querySelectorAll('.popup__feature');
   var children = feature.children;
@@ -162,9 +169,9 @@ var fillMapCard = function (mapCardElement, offer) {
       feature.removeChild(features[i]);
     }
   }
+};
 
-  mapCardElement.querySelector('.popup__description').textContent = offer.description;
-
+var fillMapCardPhotos = function () {
   var photos = mapCardElement.querySelector('.popup__photos');
   var photo = mapCardElement.querySelector('.popup__photo');
 
@@ -172,18 +179,17 @@ var fillMapCard = function (mapCardElement, offer) {
     photo.src = element;
     photos.appendChild(photo);
   });
-
-  mapCardElement.querySelector('.popup__avatar').src = rentalAds[0].author.avatar;
 };
 
 var rentalAds = getRentalAds();
+var offer = rentalAds[0].offer;
 
 showRentalAds();
 
-var mapCardElement = similarMapCardTemplate.cloneNode(true);
+fillMapCardSimpleText();
 
-var offer = rentalAds[0].offer;
+fillMapCardFeatures();
 
-fillMapCard(mapCardElement, offer);
+fillMapCardPhotos();
 
 similarListElement.insertAdjacentElement('afterend', mapCardElement);
