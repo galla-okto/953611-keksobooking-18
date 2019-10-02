@@ -2,7 +2,7 @@
 
 var RENTAL_ADS_QUANTITY = 8;
 var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
-var TYPE_OBJ_APARTMENTS = {
+var Type = {
   BUNGALO: 'Bungalo',
   HOUSE: 'House',
   PALACE: 'Palace',
@@ -32,14 +32,11 @@ var getRandom = function (max, including, min) {
 };
 
 var userDialog = document.querySelector('.map');
-userDialog.classList.remove('map--faded');
+//userDialog.classList.remove('map--faded');
 
 var similarListElement = userDialog.querySelector('.map__pins');
-
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
-
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-
 var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var getAvatar = function (index) {
@@ -128,7 +125,7 @@ var showRentalAds = function () {
 };
 
 var getTypeHouse = function (typeHouse) {
-  return TYPE_OBJ_APARTMENTS[typeHouse.toUpperCase()];
+  return Type[typeHouse.toUpperCase()];
 };
 
 var getRoomsAndGuests = function (rooms, guests) {
@@ -184,12 +181,12 @@ var fillMapCardPhotos = function () {
 var rentalAds = getRentalAds();
 var offer = rentalAds[0].offer;
 
-showRentalAds();
+//showRentalAds();
 
-fillMapCardSimpleText();
+//fillMapCardSimpleText();
 
-fillMapCardFeatures();
+//fillMapCardFeatures();
 
-fillMapCardPhotos();
+//fillMapCardPhotos();
 
-similarListElement.insertAdjacentElement('afterend', mapCardElement);
+//similarListElement.insertAdjacentElement('afterend', mapCardElement);
