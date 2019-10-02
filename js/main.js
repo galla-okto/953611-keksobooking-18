@@ -31,6 +31,8 @@ var getRandom = function (max, including, min) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
 };
 
+var formAd = document.querySelector('.ad-form');
+
 var userDialog = document.querySelector('.map');
 //userDialog.classList.remove('map--faded');
 
@@ -178,6 +180,14 @@ var fillMapCardPhotos = function () {
   });
 };
 
+var setInActivePage = function () {
+  var adFormElements = formAd.querySelectorAll('.ad-form__element');
+
+  adFormElements.forEach(function (element) {
+    element.setAttribute('disabled', '');
+  });
+};
+
 var rentalAds = getRentalAds();
 var offer = rentalAds[0].offer;
 
@@ -190,3 +200,5 @@ var offer = rentalAds[0].offer;
 //fillMapCardPhotos();
 
 //similarListElement.insertAdjacentElement('afterend', mapCardElement);
+
+setInActivePage();
