@@ -2,12 +2,12 @@
 
 var RENTAL_ADS_QUANTITY = 8;
 var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
-var Type = {
+/* var Type = {
   BUNGALO: 'Bungalo',
   HOUSE: 'House',
   PALACE: 'Palace',
   FLAT: 'Flat'
-};
+};*/
 var CHECK_IN = ['12:00', '13:00', '14:00'];
 var CHECK_OUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -43,8 +43,8 @@ var similarListElement = userDialogMap.querySelector('.map__pins');
 var mapPinMain = similarListElement.querySelector('.map__pin--main');
 // var mapFilters = similarListElement.querySelector('.map__filters');
 
-var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
-var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+// var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
+// var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var getAvatar = function (index) {
@@ -114,11 +114,11 @@ var getRentalAds = function () {
   return rentalAds;
 };
 
-var getCoordinates = function (pin) {
+/* var getCoordinates = function (pin) {
   return 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
 };
 
-/* var renderMapIn = function (pin) {
+var renderMapIn = function (pin) {
   var rentalAdsElement = similarMapInTemplate.cloneNode(true);
 
   var imgAds = rentalAdsElement.querySelector('img');
@@ -233,7 +233,7 @@ var onMapInMouseDown = function (evt) {
   setAddress(evt);
 };
 
-var rentalAds = getRentalAds();
+// var rentalAds = getRentalAds();
 // var offer = rentalAds[0].offer;
 
 // showRentalAds();
