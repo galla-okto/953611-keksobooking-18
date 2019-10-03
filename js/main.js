@@ -236,7 +236,7 @@ var onMapInMouseDown = function (evt) {
 var rentalAds = getRentalAds();
 var offer = rentalAds[0].offer;
 
-if (2 !== 2) {
+if (offer === 2) {
   showRentalAds();
 
   fillMapCardSimpleText();
@@ -246,7 +246,7 @@ if (2 !== 2) {
   fillMapCardPhotos();
 
   similarListElement.insertAdjacentElement('afterend', mapCardElement);
-};
+}
 
 setInActivePage();
 
