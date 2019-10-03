@@ -104,7 +104,7 @@ var createRentalAd = function (index) {
   };
 };
 
-var getRentalAds = function () {
+/* var getRentalAds = function () {
   var rentalAds = [];
 
   for (var i = 1; i <= RENTAL_ADS_QUANTITY; i++) {
@@ -114,7 +114,7 @@ var getRentalAds = function () {
   return rentalAds;
 };
 
-/* var getCoordinates = function (pin) {
+var getCoordinates = function (pin) {
   return 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
 };
 
