@@ -41,7 +41,7 @@ var userDialogMap = document.querySelector('.map');
 
 var similarListElement = userDialogMap.querySelector('.map__pins');
 var mapPinMain = similarListElement.querySelector('.map__pin--main');
-var mapFilters = similarListElement.querySelector('.map__filters');
+// var mapFilters = similarListElement.querySelector('.map__filters');
 
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
@@ -130,7 +130,7 @@ var renderMapIn = function (pin) {
   return rentalAdsElement;
 };
 
- var showRentalAds = function () {
+var showRentalAds = function () {
   var fragment = document.createDocumentFragment();
 
   rentalAds.forEach(function (element) {
@@ -233,10 +233,10 @@ var onMapInMouseDown = function (evt) {
   setAddress(evt);
 };
 
- var rentalAds = getRentalAds();
- var offer = rentalAds[0].offer;
+var rentalAds = getRentalAds();
+var offer = rentalAds[0].offer;
 
- var after = function () {
+if (2 !== 2) {
   showRentalAds();
 
   fillMapCardSimpleText();
@@ -246,7 +246,7 @@ var onMapInMouseDown = function (evt) {
   fillMapCardPhotos();
 
   similarListElement.insertAdjacentElement('afterend', mapCardElement);
- };
+};
 
 setInActivePage();
 
