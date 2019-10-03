@@ -26,17 +26,23 @@ var PRICE_MAX = 2000;
 var ROOMS_MAX = 5;
 var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
+var ENTER_KEYCODE = 13;
 
 var getRandom = function (max, including, min) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
 };
 
-var formAd = document.querySelector('.ad-form');
+var userDialogAdForm = document.querySelector('.ad-form');
+var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
+var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
+var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
 
-var userDialog = document.querySelector('.map');
-//userDialog.classList.remove('map--faded');
+var userDialogMap = document.querySelector('.map');
 
-var similarListElement = userDialog.querySelector('.map__pins');
+var similarListElement = userDialogMap.querySelector('.map__pins');
+var mapPinMain = similarListElement.querySelector('.map__pin--main');
+var mapFilters = similarListElement.querySelector('.map__filters');
+
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var mapCardElement = similarMapCardTemplate.cloneNode(true);
@@ -65,6 +71,14 @@ var getArrayPhotos = function (quantity) {
   return photos;
 };
 
+var getMapinX = function (initialX) {
+  return initialX - MAPIN_WIDTH / 2;
+};
+
+var getMapinY = function (initialY) {
+  return initialY - MAPIN_HEIGHT;
+};
+
 var createRentalAd = function (index) {
   return {
     'author': {
@@ -84,8 +98,8 @@ var createRentalAd = function (index) {
       'photos': getArrayPhotos(getRandom(PHOTOS.length, 1, 0))
     },
     'location': {
-      'x': getRandom(MAP_WIDTH, 0, 0) - MAPIN_WIDTH / 2,
-      'y': getRandom(MAP_HEIGHT, 0, 0) - MAPIN_HEIGHT + SKY_WIDTH
+      'x': getMapinX(getRandom(MAP_WIDTH, 0, 0)),
+      'y': getMapinY(getRandom(MAP_HEIGHT, 0, 0)) + SKY_WIDTH
     }
   };
 };
@@ -181,11 +195,42 @@ var fillMapCardPhotos = function () {
 };
 
 var setInActivePage = function () {
-  var adFormElements = formAd.querySelectorAll('.ad-form__element');
+  var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+
+  userDialogMap.classList.add('map--faded');
+
+  userDialogAdForm.classList.add('ad-form--disabled');
+  //mapFilters.classList.add('map__filters--disabled');
 
   adFormElements.forEach(function (element) {
     element.setAttribute('disabled', '');
   });
+};
+
+var setActivePage = function () {
+  userDialogMap.classList.remove('map--faded');
+
+  userDialogAdForm.classList.remove('ad-form--disabled');
+  //mapFilters.classList.remove('map__filters--disabled');
+
+  var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+
+  adFormElements.forEach(function (element) {
+    element.removeAttribute('disabled', '');
+  });
+};
+
+var setAddress = function (evt) {
+  userDialogAddress.value = getMapinX(evt.clientX) + ' ' + getMapinY(evt.clientY);
+};
+
+var setAddressInitial = function (X, Y) {
+  userDialogAddress.value = getMapinX(X) + ' ' + getMapinY(Y);
+};
+
+var onMapInMouseDown = function (evt) {
+  setActivePage();
+  setAddress(evt);
 };
 
 var rentalAds = getRentalAds();
@@ -202,3 +247,27 @@ var offer = rentalAds[0].offer;
 //similarListElement.insertAdjacentElement('afterend', mapCardElement);
 
 setInActivePage();
+
+setAddressInitial(MAP_WIDTH / 2, MAP_HEIGHT / 2);
+
+mapPinMain.addEventListener('mousedown', onMapInMouseDown);
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    setActivePage();
+    setAddress(evt);
+  }
+});
+
+userDialogCapacity.addEventListener('invalid', function (evt) {
+  if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === "1")
+  && (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== "1")) {
+    userDialogCapacity.setCustomValidity('1 комната для 1 гостя');
+  } else if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === "2")
+  && ((userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== "1")
+  || (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== "2"))) {
+    userDialogCapacity.setCustomValidity('2 комнаты для 1 или 2 гостей');
+  } else {
+    userDialogCapacity.setCustomValidity('');
+  }
+});
