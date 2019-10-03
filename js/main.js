@@ -41,11 +41,11 @@ var userDialogMap = document.querySelector('.map');
 
 var similarListElement = userDialogMap.querySelector('.map__pins');
 var mapPinMain = similarListElement.querySelector('.map__pin--main');
-//var mapFilters = similarListElement.querySelector('.map__filters');
+// var mapFilters = similarListElement.querySelector('.map__filters');
 
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-var mapCardElement = similarMapCardTemplate.cloneNode(true);
+// var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
@@ -118,7 +118,7 @@ var getCoordinates = function (pin) {
   return 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
 };
 
-var renderMapIn = function (pin) {
+/* var renderMapIn = function (pin) {
   var rentalAdsElement = similarMapInTemplate.cloneNode(true);
 
   var imgAds = rentalAdsElement.querySelector('img');
@@ -130,7 +130,7 @@ var renderMapIn = function (pin) {
   return rentalAdsElement;
 };
 
-/*var showRentalAds = function () {
+ var showRentalAds = function () {
   var fragment = document.createDocumentFragment();
 
   rentalAds.forEach(function (element) {
@@ -138,7 +138,7 @@ var renderMapIn = function (pin) {
   });
 
   similarListElement.appendChild(fragment);
-};*/
+};
 
 var getTypeHouse = function (typeHouse) {
   return Type[typeHouse.toUpperCase()];
@@ -156,7 +156,7 @@ var getDescription = function (description) {
   return description;
 };
 
-/*var fillMapCardSimpleText = function () {
+var fillMapCardSimpleText = function () {
   mapCardElement.querySelector('.popup__title').textContent = offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
   mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + '&#8381/ночь';
@@ -167,9 +167,9 @@ var getDescription = function (description) {
   mapCardElement.querySelector('.popup__description').textContent = getDescription(offer.description);
 
   mapCardElement.querySelector('.popup__avatar').src = rentalAds[0].author.avatar;
-};*/
+};
 
-/*var fillMapCardFeatures = function () {
+var fillMapCardFeatures = function () {
   var feature = mapCardElement.querySelector('.popup__features');
   var features = mapCardElement.querySelectorAll('.popup__feature');
   var children = feature.children;
@@ -182,9 +182,9 @@ var getDescription = function (description) {
       feature.removeChild(features[i]);
     }
   }
-};*/
+};
 
-/*var fillMapCardPhotos = function () {
+var fillMapCardPhotos = function () {
   var photos = mapCardElement.querySelector('.popup__photos');
   var photo = mapCardElement.querySelector('.popup__photo');
 
@@ -234,7 +234,7 @@ var onMapInMouseDown = function (evt) {
 };
 
 var rentalAds = getRentalAds();
-var offer = rentalAds[0].offer;
+// var offer = rentalAds[0].offer;
 
 // showRentalAds();
 
