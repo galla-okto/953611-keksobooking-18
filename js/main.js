@@ -2,12 +2,12 @@
 
 var RENTAL_ADS_QUANTITY = 8;
 var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
-/* var Type = {
+var Type = {
   BUNGALO: 'Bungalo',
   HOUSE: 'House',
   PALACE: 'Palace',
   FLAT: 'Flat'
-};*/
+};
 var CHECK_IN = ['12:00', '13:00', '14:00'];
 var CHECK_OUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -41,11 +41,11 @@ var userDialogMap = document.querySelector('.map');
 
 var similarListElement = userDialogMap.querySelector('.map__pins');
 var mapPinMain = similarListElement.querySelector('.map__pin--main');
-// var mapFilters = similarListElement.querySelector('.map__filters');
+var mapFilters = similarListElement.querySelector('.map__filters');
 
-// var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
-// var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-// var mapCardElement = similarMapCardTemplate.cloneNode(true);
+var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
+var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var getAvatar = function (index) {
   return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
@@ -104,7 +104,7 @@ var createRentalAd = function (index) {
   };
 };
 
-/* var getRentalAds = function () {
+var getRentalAds = function () {
   var rentalAds = [];
 
   for (var i = 1; i <= RENTAL_ADS_QUANTITY; i++) {
@@ -192,7 +192,7 @@ var fillMapCardPhotos = function () {
     photo.src = element;
     photos.appendChild(photo);
   });
-};*/
+};
 
 var setInActivePage = function () {
   var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
@@ -233,18 +233,20 @@ var onMapInMouseDown = function (evt) {
   setAddress(evt);
 };
 
-// var rentalAds = getRentalAds();
-// var offer = rentalAds[0].offer;
+ var rentalAds = getRentalAds();
+ var offer = rentalAds[0].offer;
 
-// showRentalAds();
+ var after = function () {
+  showRentalAds();
 
-// fillMapCardSimpleText();
+  fillMapCardSimpleText();
 
-// fillMapCardFeatures();
+  fillMapCardFeatures();
 
-// fillMapCardPhotos();
+  fillMapCardPhotos();
 
-// similarListElement.insertAdjacentElement('afterend', mapCardElement);
+  similarListElement.insertAdjacentElement('afterend', mapCardElement);
+ };
 
 setInActivePage();
 
