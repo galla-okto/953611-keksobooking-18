@@ -41,7 +41,7 @@ var userDialogMap = document.querySelector('.map');
 
 var similarListElement = userDialogMap.querySelector('.map__pins');
 var mapPinMain = similarListElement.querySelector('.map__pin--main');
-var mapFilters = similarListElement.querySelector('.map__filters');
+//var mapFilters = similarListElement.querySelector('.map__filters');
 
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
@@ -130,7 +130,7 @@ var renderMapIn = function (pin) {
   return rentalAdsElement;
 };
 
-var showRentalAds = function () {
+/*var showRentalAds = function () {
   var fragment = document.createDocumentFragment();
 
   rentalAds.forEach(function (element) {
@@ -138,7 +138,7 @@ var showRentalAds = function () {
   });
 
   similarListElement.appendChild(fragment);
-};
+};*/
 
 var getTypeHouse = function (typeHouse) {
   return Type[typeHouse.toUpperCase()];
@@ -156,7 +156,7 @@ var getDescription = function (description) {
   return description;
 };
 
-var fillMapCardSimpleText = function () {
+/*var fillMapCardSimpleText = function () {
   mapCardElement.querySelector('.popup__title').textContent = offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
   mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + '&#8381/ночь';
@@ -167,9 +167,9 @@ var fillMapCardSimpleText = function () {
   mapCardElement.querySelector('.popup__description').textContent = getDescription(offer.description);
 
   mapCardElement.querySelector('.popup__avatar').src = rentalAds[0].author.avatar;
-};
+};*/
 
-var fillMapCardFeatures = function () {
+/*var fillMapCardFeatures = function () {
   var feature = mapCardElement.querySelector('.popup__features');
   var features = mapCardElement.querySelectorAll('.popup__feature');
   var children = feature.children;
@@ -182,9 +182,9 @@ var fillMapCardFeatures = function () {
       feature.removeChild(features[i]);
     }
   }
-};
+};*/
 
-var fillMapCardPhotos = function () {
+/*var fillMapCardPhotos = function () {
   var photos = mapCardElement.querySelector('.popup__photos');
   var photo = mapCardElement.querySelector('.popup__photo');
 
@@ -192,7 +192,7 @@ var fillMapCardPhotos = function () {
     photo.src = element;
     photos.appendChild(photo);
   });
-};
+};*/
 
 var setInActivePage = function () {
   var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
@@ -200,7 +200,7 @@ var setInActivePage = function () {
   userDialogMap.classList.add('map--faded');
 
   userDialogAdForm.classList.add('ad-form--disabled');
-  //mapFilters.classList.add('map__filters--disabled');
+  // mapFilters.classList.add('map__filters--disabled');
 
   adFormElements.forEach(function (element) {
     element.setAttribute('disabled', '');
@@ -211,7 +211,7 @@ var setActivePage = function () {
   userDialogMap.classList.remove('map--faded');
 
   userDialogAdForm.classList.remove('ad-form--disabled');
-  //mapFilters.classList.remove('map__filters--disabled');
+  // mapFilters.classList.remove('map__filters--disabled');
 
   var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
 
@@ -236,15 +236,15 @@ var onMapInMouseDown = function (evt) {
 var rentalAds = getRentalAds();
 var offer = rentalAds[0].offer;
 
-//showRentalAds();
+// showRentalAds();
 
-//fillMapCardSimpleText();
+// fillMapCardSimpleText();
 
-//fillMapCardFeatures();
+// fillMapCardFeatures();
 
-//fillMapCardPhotos();
+// fillMapCardPhotos();
 
-//similarListElement.insertAdjacentElement('afterend', mapCardElement);
+// similarListElement.insertAdjacentElement('afterend', mapCardElement);
 
 setInActivePage();
 
@@ -259,13 +259,13 @@ mapPinMain.addEventListener('keydown', function (evt) {
   }
 });
 
-userDialogCapacity.addEventListener('invalid', function (evt) {
-  if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === "1")
-  && (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== "1")) {
+userDialogCapacity.addEventListener('invalid', function () {
+  if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === '1')
+  && (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== '1')) {
     userDialogCapacity.setCustomValidity('1 комната для 1 гостя');
-  } else if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === "2")
-  && ((userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== "1")
-  || (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== "2"))) {
+  } else if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === '2')
+  && ((userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== '1')
+  || (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== '2'))) {
     userDialogCapacity.setCustomValidity('2 комнаты для 1 или 2 гостей');
   } else {
     userDialogCapacity.setCustomValidity('');
