@@ -218,6 +218,10 @@ var setActivePage = function () {
   adFormElements.forEach(function (element) {
     element.removeAttribute('disabled', '');
   });
+
+  showRentalAds();
+
+  showCard();
 };
 
 var setAddress = function (evt) {
@@ -233,12 +237,7 @@ var onMapInMouseDown = function (evt) {
   setAddress(evt);
 };
 
-var rentalAds = getRentalAds();
-var offer = rentalAds[0].offer;
-
-if (offer === 2) {
-  showRentalAds();
-
+var showCard = function () {
   fillMapCardSimpleText();
 
   fillMapCardFeatures();
@@ -246,7 +245,23 @@ if (offer === 2) {
   fillMapCardPhotos();
 
   similarListElement.insertAdjacentElement('afterend', mapCardElement);
-}
+};
+
+var checkCapacity = function () {
+  var rooms = userDialogRooms.options[userDialogRooms.selectedIndex].value;
+  var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex].value;
+
+  if ((rooms === '1') && (capacity !== '1')) {
+    userDialogCapacity.setCustomValidity("1 комната для 1 гостя");
+  } else if ((rooms === '2') && ((capacity !== '1') || (capacity !== '2'))) {
+    userDialogCapacity.setCustomValidity('2 комнаты для 1 или 2 гостей');
+  } else {
+    userDialogCapacity.setCustomValidity('');
+  }
+};
+
+var rentalAds = getRentalAds();
+var offer = rentalAds[0].offer;
 
 setInActivePage();
 
@@ -261,15 +276,4 @@ mapPinMain.addEventListener('keydown', function (evt) {
   }
 });
 
-userDialogCapacity.addEventListener('invalid', function () {
-  if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === '1')
-  && (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== '1')) {
-    userDialogCapacity.setCustomValidity('1 комната для 1 гостя');
-  } else if ((userDialogRooms.options[userDialogRooms.selectedIndex].value === '2')
-  && ((userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== '1')
-  || (userDialogCapacity.options[userDialogCapacity.selectedIndex].value !== '2'))) {
-    userDialogCapacity.setCustomValidity('2 комнаты для 1 или 2 гостей');
-  } else {
-    userDialogCapacity.setCustomValidity('');
-  }
-});
+/*userDialogCapacity.addEventListener('invalid', onUserDialogCapacitySelected);*/
