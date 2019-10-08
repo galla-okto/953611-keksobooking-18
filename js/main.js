@@ -252,7 +252,7 @@ var checkCapacity = function () {
   var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex].value;
 
   if ((rooms === '1') && (capacity !== '1')) {
-    userDialogCapacity.setCustomValidity("1 комната для 1 гостя");
+    userDialogCapacity.setCustomValidity('1 комната для 1 гостя');
   } else if ((rooms === '2') && ((capacity !== '1') || (capacity !== '2'))) {
     userDialogCapacity.setCustomValidity('2 комнаты для 1 или 2 гостей');
   } else {
