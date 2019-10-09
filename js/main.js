@@ -2,12 +2,6 @@
 
 var RENTAL_ADS_QUANTITY = 8;
 var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
-var Type = {
-  BUNGALO: 'Bungalo',
-  HOUSE: 'House',
-  PALACE: 'Palace',
-  FLAT: 'Flat'
-};
 var CHECK_IN = ['12:00', '13:00', '14:00'];
 var CHECK_OUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -28,6 +22,12 @@ var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
 var ENTER_KEYCODE = 13;
 var NO_GUESTS_HOUSE = '100';
+var Type = {
+  BUNGALO: 'Bungalo',
+  HOUSE: 'House',
+  PALACE: 'Palace',
+  FLAT: 'Flat'
+};
 var RoomGuestsMap = {
   1: [1],
   2: [1, 2],
@@ -48,7 +48,6 @@ var userDialogMap = document.querySelector('.map');
 
 var similarListElement = userDialogMap.querySelector('.map__pins');
 var mapPinMain = similarListElement.querySelector('.map__pin--main');
-// var mapFilters = similarListElement.querySelector('.map__filters');
 
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
@@ -207,7 +206,6 @@ var setInActivePage = function () {
   userDialogMap.classList.add('map--faded');
 
   userDialogAdForm.classList.add('ad-form--disabled');
-  // mapFilters.classList.add('map__filters--disabled');
 
   adFormElements.forEach(function (element) {
     element.setAttribute('disabled', '');
@@ -218,7 +216,6 @@ var setActivePage = function () {
   userDialogMap.classList.remove('map--faded');
 
   userDialogAdForm.classList.remove('ad-form--disabled');
-  // mapFilters.classList.remove('map__filters--disabled');
 
   var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
 
@@ -232,7 +229,7 @@ var setActivePage = function () {
 };
 
 var setAddress = function (evt) {
-  userDialogAddress.value = getMapinX(evt.clientX) + ' ' + getMapinY(evt.clientY);
+  userDialogAddress.value = getMapinX(evt.srcElement.x) + ' ' + getMapinY(evt.srcElement.y);
 };
 
 var setAddressInitial = function (X, Y) {
