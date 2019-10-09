@@ -29,11 +29,11 @@ var NUMBER_MAX = 9;
 var ENTER_KEYCODE = 13;
 var NO_GUESTS_HOUSE = '100';
 var RoomGuestsMap = {
-    1: [1],
-    2: [1, 2],
-    3: [1, 2, 3],
-    100: [0]
-  };
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0]
+};
 
 var getRandom = function (max, including, min) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
@@ -268,7 +268,7 @@ var onRoomsGuestsChange = function () {
   } else if (isCapacityEnough === false) {
     message = 'Допустимое количество гостей - не более ' + Math.max.apply(Math, RoomGuestsMap[roomNumber.value]) + ', но больше 0';
   }
-  capacity.setCustomValidity(message);
+  userDialogCapacity.setCustomValidity(message);
 };
 
 var rentalAds = getRentalAds();
