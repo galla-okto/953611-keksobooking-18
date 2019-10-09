@@ -27,6 +27,13 @@ var ROOMS_MAX = 5;
 var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
 var ENTER_KEYCODE = 13;
+var NO_GUESTS_HOUSE = '100';
+var RoomGuestsMap = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
+  };
 
 var getRandom = function (max, including, min) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
@@ -247,17 +254,21 @@ var showCard = function () {
   similarListElement.insertAdjacentElement('afterend', mapCardElement);
 };
 
-var checkCapacity = function () {
-  var rooms = userDialogRooms.options[userDialogRooms.selectedIndex].value;
-  var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex].value;
+var onRoomsGuestsChange = function () {
+  var roomNumber = userDialogRooms.options[userDialogRooms.selectedIndex];
+  var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex];
 
-  if ((rooms === '1') && (capacity !== '1')) {
-    userDialogCapacity.setCustomValidity('1 комната для 1 гостя');
-  } else if ((rooms === '2') && ((capacity !== '1') || (capacity !== '2'))) {
-    userDialogCapacity.setCustomValidity('2 комнаты для 1 или 2 гостей');
-  } else {
-    userDialogCapacity.setCustomValidity('');
+  var isCapacityEnough = RoomGuestsMap[roomNumber.value].some(function (elem) {
+    return elem === Number(capacity.value);
+  });
+  var message = '';
+
+  if (isCapacityEnough === false && roomNumber.value === NO_GUESTS_HOUSE) {
+    message = 'Допустимое значение - не для гостей';
+  } else if (isCapacityEnough === false) {
+    message = 'Допустимое количество гостей - не более ' + Math.max.apply(Math, RoomGuestsMap[roomNumber.value]) + ', но больше 0';
   }
+  capacity.setCustomValidity(message);
 };
 
 var rentalAds = getRentalAds();
@@ -276,4 +287,5 @@ mapPinMain.addEventListener('keydown', function (evt) {
   }
 });
 
-/*userDialogCapacity.addEventListener('invalid', onUserDialogCapacitySelected);*/
+userDialogCapacity.addEventListener('change', onRoomsGuestsChange);
+userDialogRooms.addEventListener('change', onRoomsGuestsChange);
