@@ -12,7 +12,7 @@ var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var MAP_WIDTH = 1200;
-var MAP_HEIGHT = 535;
+var MAP_HEIGHT = 750;
 var MAPIN_WIDTH = 50;
 var MAPIN_HEIGHT = 70;
 var SKY_WIDTH = 170;
@@ -22,6 +22,7 @@ var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
 var ENTER_KEYCODE = 13;
 var NO_GUESTS_HOUSE = '100';
+var LEFT_BOUND = 141.5;
 var Type = {
   BUNGALO: 'Bungalo',
   HOUSE: 'House',
@@ -78,11 +79,11 @@ var getArrayPhotos = function (quantity) {
 };
 
 var getMapinX = function (initialX) {
-  return initialX - MAPIN_WIDTH / 2;
+  return initialX - LEFT_BOUND;
 };
 
 var getMapinY = function (initialY) {
-  return initialY - MAPIN_HEIGHT;
+  return initialY - MAPIN_HEIGHT + MAPIN_WIDTH / 2;
 };
 
 var createRentalAd = function (index) {
@@ -229,11 +230,13 @@ var setActivePage = function () {
 };
 
 var setAddress = function (evt) {
-  userDialogAddress.value = getMapinX(evt.srcElement.x) + ' ' + getMapinY(evt.srcElement.y);
+  var y = evt.currentTarget.getBoundingClientRect().y;
+  var x = evt.currentTarget.getBoundingClientRect().x;
+  userDialogAddress.value = getMapinX(x + pageXOffset) + ' ' + getMapinY(y + pageYOffset);
 };
 
-var setAddressInitial = function (X, Y) {
-  userDialogAddress.value = getMapinX(X) + ' ' + getMapinY(Y);
+var setAddressInitial = function () {
+  userDialogAddress.value = MAP_WIDTH / 2 + ' ' + MAP_HEIGHT / 2;
 };
 
 var onMapInMouseDown = function (evt) {
@@ -273,7 +276,7 @@ var offer = rentalAds[0].offer;
 
 setInActivePage();
 
-setAddressInitial(MAP_WIDTH / 2, MAP_HEIGHT / 2);
+setAddressInitial();
 
 mapPinMain.addEventListener('mousedown', onMapInMouseDown);
 
