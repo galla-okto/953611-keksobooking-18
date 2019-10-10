@@ -2,12 +2,6 @@
 
 var RENTAL_ADS_QUANTITY = 8;
 var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
-var TYPE_OBJ_APARTMENTS = {
-  BUNGALO: 'Bungalo',
-  HOUSE: 'House',
-  PALACE: 'Palace',
-  FLAT: 'Flat'
-};
 var CHECK_IN = ['12:00', '13:00', '14:00'];
 var CHECK_OUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -18,7 +12,7 @@ var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var MAP_WIDTH = 1200;
-var MAP_HEIGHT = 535;
+var MAP_HEIGHT = 750;
 var MAPIN_WIDTH = 50;
 var MAPIN_HEIGHT = 70;
 var SKY_WIDTH = 170;
@@ -26,20 +20,38 @@ var PRICE_MAX = 2000;
 var ROOMS_MAX = 5;
 var GUESTS_MAX = 8;
 var NUMBER_MAX = 9;
+var ENTER_KEYCODE = 13;
+var NO_GUESTS_HOUSE = '100';
+var LEFT_BOUND = 141.5;
+var Type = {
+  BUNGALO: 'Bungalo',
+  HOUSE: 'House',
+  PALACE: 'Palace',
+  FLAT: 'Flat'
+};
+var RoomGuestsMap = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0]
+};
 
 var getRandom = function (max, including, min) {
   return Math.round(Math.random() * (max - min - (including ? 1 : 0))) + min;
 };
 
-var userDialog = document.querySelector('.map');
-userDialog.classList.remove('map--faded');
+var userDialogAdForm = document.querySelector('.ad-form');
+var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
+var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
+var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
 
-var similarListElement = userDialog.querySelector('.map__pins');
+var userDialogMap = document.querySelector('.map');
+
+var similarListElement = userDialogMap.querySelector('.map__pins');
+var mapPinMain = similarListElement.querySelector('.map__pin--main');
 
 var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
-
 var similarMapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-
 var mapCardElement = similarMapCardTemplate.cloneNode(true);
 
 var getAvatar = function (index) {
@@ -66,6 +78,14 @@ var getArrayPhotos = function (quantity) {
   return photos;
 };
 
+var getMapinX = function (initialX) {
+  return initialX - LEFT_BOUND;
+};
+
+var getMapinY = function (initialY) {
+  return initialY - MAPIN_HEIGHT + MAPIN_WIDTH / 2;
+};
+
 var createRentalAd = function (index) {
   return {
     'author': {
@@ -85,8 +105,8 @@ var createRentalAd = function (index) {
       'photos': getArrayPhotos(getRandom(PHOTOS.length, 1, 0))
     },
     'location': {
-      'x': getRandom(MAP_WIDTH, 0, 0) - MAPIN_WIDTH / 2,
-      'y': getRandom(MAP_HEIGHT, 0, 0) - MAPIN_HEIGHT + SKY_WIDTH
+      'x': getMapinX(getRandom(MAP_WIDTH, 0, 0)),
+      'y': getMapinY(getRandom(MAP_HEIGHT, 0, 0)) + SKY_WIDTH
     }
   };
 };
@@ -128,7 +148,7 @@ var showRentalAds = function () {
 };
 
 var getTypeHouse = function (typeHouse) {
-  return TYPE_OBJ_APARTMENTS[typeHouse.toUpperCase()];
+  return Type[typeHouse.toUpperCase()];
 };
 
 var getRoomsAndGuests = function (rooms, guests) {
@@ -181,15 +201,91 @@ var fillMapCardPhotos = function () {
   });
 };
 
+var setInActivePage = function () {
+  var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+
+  userDialogMap.classList.add('map--faded');
+
+  userDialogAdForm.classList.add('ad-form--disabled');
+
+  adFormElements.forEach(function (element) {
+    element.setAttribute('disabled', '');
+  });
+};
+
+var setActivePage = function () {
+  userDialogMap.classList.remove('map--faded');
+
+  userDialogAdForm.classList.remove('ad-form--disabled');
+
+  var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+
+  adFormElements.forEach(function (element) {
+    element.removeAttribute('disabled', '');
+  });
+
+  showRentalAds();
+
+  showCard();
+};
+
+var setAddress = function (evt) {
+  var y = evt.currentTarget.getBoundingClientRect().y;
+  var x = evt.currentTarget.getBoundingClientRect().x;
+  userDialogAddress.value = getMapinX(x + pageXOffset) + ' ' + getMapinY(y + pageYOffset);
+};
+
+var setAddressInitial = function () {
+  userDialogAddress.value = MAP_WIDTH / 2 + ' ' + MAP_HEIGHT / 2;
+};
+
+var onMapInMouseDown = function (evt) {
+  setActivePage();
+  setAddress(evt);
+};
+
+var showCard = function () {
+  fillMapCardSimpleText();
+
+  fillMapCardFeatures();
+
+  fillMapCardPhotos();
+
+  similarListElement.insertAdjacentElement('afterend', mapCardElement);
+};
+
+var onRoomsGuestsChange = function () {
+  var roomNumber = userDialogRooms.options[userDialogRooms.selectedIndex];
+  var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex];
+
+  var isCapacityEnough = RoomGuestsMap[roomNumber.value].some(function (elem) {
+    return elem === Number(capacity.value);
+  });
+  var message = '';
+
+  if (isCapacityEnough === false && roomNumber.value === NO_GUESTS_HOUSE) {
+    message = 'Допустимое значение - не для гостей';
+  } else if (isCapacityEnough === false) {
+    message = 'Допустимое количество гостей - не более ' + Math.max.apply(Math, RoomGuestsMap[roomNumber.value]) + ', но больше 0';
+  }
+  userDialogCapacity.setCustomValidity(message);
+};
+
 var rentalAds = getRentalAds();
 var offer = rentalAds[0].offer;
 
-showRentalAds();
+setInActivePage();
 
-fillMapCardSimpleText();
+setAddressInitial();
 
-fillMapCardFeatures();
+mapPinMain.addEventListener('mousedown', onMapInMouseDown);
 
-fillMapCardPhotos();
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    setActivePage();
+    setAddress(evt);
+  }
+});
 
-similarListElement.insertAdjacentElement('afterend', mapCardElement);
+userDialogCapacity.addEventListener('change', onRoomsGuestsChange);
+userDialogRooms.addEventListener('change', onRoomsGuestsChange);
