@@ -211,10 +211,6 @@ var fillMapCardPhotos = function (offer) {
   });
 };
 
-var onMapPinClick = function () {
-  showCard();
-};
-
 var setInActivePage = function () {
   var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
 
