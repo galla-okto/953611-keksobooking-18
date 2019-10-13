@@ -24,6 +24,7 @@ var NUMBER_MAX = 9;
 var ENTER_KEYCODE = 13;
 var NO_GUESTS_HOUSE = '100';
 var ESC_KEYCODE = 27;
+var isActive = false;
 var Type = {
   BUNGALO: 'Bungalo',
   HOUSE: 'House',
@@ -173,7 +174,7 @@ var getDescription = function (description) {
   return description;
 };
 
-var fillMapCardSimpleText = function (offer) {
+var fillMapCardSimpleText = function (author, offer) {
   mapCardElement.querySelector('.popup__title').textContent = offer.title;
   mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
   mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + '&#8381/ночь';
@@ -183,7 +184,7 @@ var fillMapCardSimpleText = function (offer) {
   mapCardElement.querySelector('.popup__text--time').textContent = getCheckInAndOut(offer.checkin, offer.checkout);
   mapCardElement.querySelector('.popup__description').textContent = getDescription(offer.description);
 
-  mapCardElement.querySelector('.popup__avatar').src = rentalAds[0].author.avatar;
+  mapCardElement.querySelector('.popup__avatar').src = author.avatar;
 };
 
 var fillMapCardFeatures = function (offer) {
@@ -234,7 +235,10 @@ var setActivePage = function () {
     element.removeAttribute('disabled', '');
   });
 
-  showRentalAds();
+  if (!isActive) {
+    showRentalAds();
+    isActive = true;
+  }
 
   userDialogCapacity.addEventListener('change', onRoomsGuestsChange);
   userDialogRooms.addEventListener('change', onRoomsGuestsChange);
@@ -267,23 +271,27 @@ var onMapInMouseDown = function (evt) {
 
 var showCard = function (evt) {
   var currentOffer;
+  var currentAuthor;
 
   rentalAds.forEach(function (element) {
     if (element.location.x === evt.currentTarget.offsetLeft &&
-    element.location.y === evt.currentTarget.offsetTop) {
+      element.location.y === evt.currentTarget.offsetTop) {
       currentOffer = element.offer;
+      currentAuthor = element.author;
     }
   });
 
-  fillMapCardSimpleText(currentOffer);
+  if (currentOffer != undefined) {
+    fillMapCardSimpleText(currentAuthor, currentOffer);
 
-  fillMapCardFeatures(currentOffer);
+    fillMapCardFeatures(currentOffer);
 
-  fillMapCardPhotos(currentOffer);
+    fillMapCardPhotos(currentOffer);
 
-  similarListElement.insertAdjacentElement('afterend', mapCardElement);
+    similarListElement.insertAdjacentElement('afterend', mapCardElement);
 
-  openCard();
+    openCard();
+  }
 };
 
 var openCard = function () {
