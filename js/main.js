@@ -281,7 +281,7 @@ var showCard = function (evt) {
     }
   });
 
-  if (currentOffer != undefined) {
+  if (currentOffer !== undefined) {
     fillMapCardSimpleText(currentAuthor, currentOffer);
 
     fillMapCardFeatures(currentOffer);
