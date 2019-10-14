@@ -338,6 +338,7 @@ var onRoomsGuestsChange = function () {
 var onTypeMinPriceChange = function () {
   var type = userDialogType.options[userDialogType.selectedIndex];
   userDialogPrice.placeholder = MinPrice[type.value.toUpperCase()];
+  userDialogPrice.min = MinPrice[type.value.toUpperCase()];
 };
 
 var onTimeInTimeOutChange = function () {
