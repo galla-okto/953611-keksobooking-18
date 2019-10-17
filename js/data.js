@@ -77,8 +77,8 @@
         'photos': getArrayPhotos(window.util.getRandom(PHOTOS.length, 1, 0))
       },
       'location': {
-        'x': getMapinX(window.util.getRandom(MAP_WIDTH, 0, 0)),
-        'y': getMapinY(window.util.getRandom(Y_MAX, 0, 0)) + Y_MIN
+        'x': window.getMapinX(window.util.getRandom(MAP_WIDTH, 0, 0)),
+        'y': window.getMapinY(window.util.getRandom(Y_MAX, 0, 0)) + Y_MIN
       }
     };
   };

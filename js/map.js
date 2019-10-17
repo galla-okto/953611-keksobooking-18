@@ -5,7 +5,7 @@
     var fragment = document.createDocumentFragment();
 
     window.rentalAds.forEach(function (element) {
-      fragment.appendChild(renderMapIn(element));
+      fragment.appendChild(window.renderMapIn(element));
     });
 
     window.util.similarListElement.appendChild(fragment);

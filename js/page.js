@@ -13,7 +13,7 @@
     });
 
     if (!window.util.isActive) {
-      showRentalAds();
+      window.showRentalAds();
       window.util.isActive = true;
     }
 
@@ -26,7 +26,7 @@
     var mapPinList = window.util.similarListElement.querySelectorAll('.map__pin');
 
     mapPinList.forEach(function (element) {
-      element.addEventListener('click', showCard);
+      element.addEventListener('click', window.showCard);
     });
   };
 
