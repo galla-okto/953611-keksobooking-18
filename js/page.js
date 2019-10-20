@@ -1,45 +1,59 @@
 'use strict';
 
 (function () {
+  var isActive = false;
+  var userDialogAdForm = document.querySelector('.ad-form');
+  var userDialogMap = document.querySelector('.map');
+  var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
+  var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
+  var userDialogType = document.querySelector('fieldset.ad-form__element select[name=type]');
+  var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
+  var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
+
+  var setHadlerOnPageElements = function () {
+    userDialogCapacity.addEventListener('change', window.onRoomsGuestsChange);
+    userDialogRooms.addEventListener('change', window.onRoomsGuestsChange);
+    userDialogType.addEventListener('change', window.onTypeMinPriceChange);
+    userDialogTimeIn.addEventListener('change', window.onTimeInTimeOutChange);
+    userDialogTimeOut.addEventListener('change', window.onTimeOutTimeInChange);
+  };
+
+  var changeDiasbledOnPageElements = function (show) {
+    if (show) {
+      userDialogMap.classList.remove('map--faded');
+      userDialogAdForm.classList.remove('ad-form--disabled');
+
+      var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+      adFormElements.forEach(function (element) {
+        element.removeAttribute('disabled', '');
+      });
+    } else {
+      userDialogMap.classList.add('map--faded');
+      userDialogAdForm.classList.add('ad-form--disabled');
+
+      var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+      adFormElements.forEach(function (element) {
+        element.setAttribute('disabled', '');
+      });
+    }
+  };
+
   window.setActivePage = function () {
-    window.util.userDialogMap.classList.remove('map--faded');
-
-    window.util.userDialogAdForm.classList.remove('ad-form--disabled');
-
-    var adFormElements = window.util.userDialogAdForm.querySelectorAll('.ad-form__element');
-
-    adFormElements.forEach(function (element) {
-      element.removeAttribute('disabled', '');
-    });
-
-    if (!window.util.isActive) {
-      window.showRentalAds();
-      window.util.isActive = true;
+    if (isActive) {
+      return;
     }
 
-    window.util.userDialogCapacity.addEventListener('change', window.onRoomsGuestsChange);
-    window.util.userDialogRooms.addEventListener('change', window.onRoomsGuestsChange);
-    window.util.userDialogType.addEventListener('change', window.onTypeMinPriceChange);
-    window.util.userDialogTimeIn.addEventListener('change', window.onTimeInTimeOutChange);
-    window.util.userDialogTimeOut.addEventListener('change', window.onTimeOutTimeInChange);
+    isActive = true;
 
-    var mapPinList = window.util.similarListElement.querySelectorAll('.map__pin');
+    changeDiasbledOnPageElements(true);
 
-    mapPinList.forEach(function (element) {
-      element.addEventListener('click', window.showCard);
-    });
+    window.showRentalAds();
+
+    setHadlerOnPageElements();
   };
 
   var setInActivePage = function () {
-    var adFormElements = window.util.userDialogAdForm.querySelectorAll('.ad-form__element');
-
-    window.util.userDialogMap.classList.add('map--faded');
-
-    window.util.userDialogAdForm.classList.add('ad-form--disabled');
-
-    adFormElements.forEach(function (element) {
-      element.setAttribute('disabled', '');
-    });
+    changeDiasbledOnPageElements(false);
   };
 
   setInActivePage();

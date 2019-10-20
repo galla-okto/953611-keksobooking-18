@@ -11,7 +11,7 @@
   var ROOMS_MAX = 5;
   var GUESTS_MAX = 8;
   var Y_MIN = 130;
-  var Y_MAX = 630;
+  var Y_MAX = 570;
   var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
   var CHECK_IN = ['12:00', '13:00', '14:00'];
   var CHECK_OUT = ['12:00', '13:00', '14:00'];
@@ -22,12 +22,13 @@
   var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+  var PATH_AVATAR = 'img/avatars/user';
 
   window.MAP_WIDTH = MAP_WIDTH;
   window.MAP_HEIGHT = MAP_HEIGHT;
 
   var getAvatar = function (index) {
-    return 'img/avatars/user' + (index > NUMBER_MAX ? '' : '0') + index + '.png';
+    return PATH_AVATAR + (index > NUMBER_MAX ? '' : '0') + index + '.png';
   };
 
   var getArrayFeatures = function (quantity) {
@@ -51,11 +52,11 @@
   };
 
   window.getMapinX = function (initialX) {
-    return initialX;
+    return initialX + MAPIN_WIDTH / 2;
   };
 
   window.getMapinY = function (initialY) {
-    return initialY - MAPIN_HEIGHT + MAPIN_WIDTH / 2;
+    return initialY + MAPIN_HEIGHT;
   };
 
   var createRentalAd = function (index) {
@@ -77,8 +78,8 @@
         'photos': getArrayPhotos(window.util.getRandom(PHOTOS.length, 1, 0))
       },
       'location': {
-        'x': window.getMapinX(window.util.getRandom(MAP_WIDTH, 0, 0)),
-        'y': window.getMapinY(window.util.getRandom(Y_MAX, 0, 0)) + Y_MIN
+        'x': window.getMapinX(window.util.getRandom(MAP_WIDTH - MAPIN_WIDTH / 2 - 1, 0, 1)),
+        'y': window.getMapinY(window.util.getRandom(Y_MAX - MAPIN_HEIGHT, 0, Y_MIN))
       }
     };
   };

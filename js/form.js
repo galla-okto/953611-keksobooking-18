@@ -1,9 +1,22 @@
 'use strict';
 
 (function () {
+  var TEXT_NO_GUESTS_HOUSE = 'Допустимое значение - не для гостей';
+  var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
+  var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
+  var userDialogType = document.querySelector('fieldset.ad-form__element select[name=type]');
+  var userDialogPrice = document.querySelector('fieldset.ad-form__element input[name=price]');
+  var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
+  var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
+  var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
+
+  var textGuestsHouse = function (roomNumber) {
+    return 'Допустимое количество гостей - не более ' + Math.max.apply(Math, window.util.RoomGuestsMap[roomNumber.value]) + ', но больше 0';
+  };
+
   window.onRoomsGuestsChange = function () {
-    var roomNumber = window.util.userDialogRooms.options[window.util.userDialogRooms.selectedIndex];
-    var capacity = window.util.userDialogCapacity.options[window.util.userDialogCapacity.selectedIndex];
+    var roomNumber = userDialogRooms.options[userDialogRooms.selectedIndex];
+    var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex];
 
     var isCapacityEnough = window.util.RoomGuestsMap[roomNumber.value].some(function (elem) {
       return elem === Number(capacity.value);
@@ -11,35 +24,35 @@
     var message = '';
 
     if (isCapacityEnough === false && roomNumber.value === window.util.NO_GUESTS_HOUSE) {
-      message = 'Допустимое значение - не для гостей';
+      message = TEXT_NO_GUESTS_HOUSE;
     } else if (isCapacityEnough === false) {
-      message = 'Допустимое количество гостей - не более ' + Math.max.apply(Math, window.util.RoomGuestsMap[roomNumber.value]) + ', но больше 0';
+      message = textGuestsHouse(roomNumber);
     }
-    window.util.userDialogCapacity.setCustomValidity(message);
+    userDialogCapacity.setCustomValidity(message);
   };
 
   window.onTypeMinPriceChange = function () {
-    var type = window.util.userDialogType.options[window.util.userDialogType.selectedIndex];
-    window.util.userDialogPrice.placeholder = window.util.MinPrice[type.value.toUpperCase()];
-    window.util.userDialogPrice.min = window.util.MinPrice[type.value.toUpperCase()];
+    var type = userDialogType.options[userDialogType.selectedIndex];
+    userDialogPrice.placeholder = window.util.MinPrice[type.value.toUpperCase()];
+    userDialogPrice.min = window.util.MinPrice[type.value.toUpperCase()];
   };
 
   window.onTimeInTimeOutChange = function () {
-    window.util.userDialogTimeOut.selectedIndex = window.util.userDialogTimeIn.selectedIndex;
+    userDialogTimeOut.selectedIndex = userDialogTimeIn.selectedIndex;
   };
 
   window.onTimeOutTimeInChange = function () {
-    window.util.userDialogTimeIn.selectedIndex = window.util.userDialogTimeOut.selectedIndex;
+    userDialogTimeIn.selectedIndex = userDialogTimeOut.selectedIndex;
   };
 
   var setAddressInitial = function () {
-    window.util.userDialogAddress.value = window.MAP_WIDTH / 2 + ' ' + window.MAP_HEIGHT / 2;
+    userDialogAddress.value = window.MAP_WIDTH / 2 + ' ' + window.MAP_HEIGHT / 2;
   };
 
   window.setAddress = function (evt) {
     var y = evt.currentTarget.getBoundingClientRect().y;
     var x = evt.currentTarget.getBoundingClientRect().x;
-    window.util.userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
+    userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
   };
 
   setAddressInitial();

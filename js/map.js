@@ -1,14 +1,18 @@
 'use strict';
 
 (function () {
+  var userDialogMap = document.querySelector('.map');
+  var mapPins = userDialogMap.querySelector('.map__pins');
+  var mapPinMain = mapPins.querySelector('.map__pin--main');
+
   window.showRentalAds = function () {
     var fragment = document.createDocumentFragment();
 
-    window.rentalAds.forEach(function (element) {
-      fragment.appendChild(window.renderMapIn(element));
-    });
+    for (var i = 0; i < rentalAds.length; i++) {
+      fragment.appendChild(window.renderMapIn(rentalAds[i], i));
+    };
 
-    window.util.similarListElement.appendChild(fragment);
+    mapPins.appendChild(fragment);
   };
 
   var onMapInMouseDown = function (evt) {
@@ -16,9 +20,9 @@
     window.setAddress(evt);
   };
 
-  window.util.mapPinMain.addEventListener('mousedown', onMapInMouseDown);
+  mapPinMain.addEventListener('mousedown', onMapInMouseDown);
 
-  window.util.mapPinMain.addEventListener('keydown', function (evt) {
+  mapPinMain.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.util.ENTER_KEYCODE) {
       window.setActivePage();
       window.setAddress(evt);
