@@ -30,8 +30,8 @@
     MinPrice: MinPrice,
     RoomGuestsMap: RoomGuestsMap,
     NO_GUESTS_HOUSE: NO_GUESTS_HOUSE,
-    getRandom: function (max, not_including, min) {
-      return Math.round(Math.random() * (max - min - (not_including ? 1 : 0))) + min;
+    getRandom: function (max, notIncluding, min) {
+      return Math.round(Math.random() * (max - min - (notIncluding ? 1 : 0))) + min;
     }
   };
 })();

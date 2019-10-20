@@ -12,7 +12,7 @@
 
     var imgAds = rentalAdsElement.querySelector('img');
 
-    rentalAdsElement.data_index = index;
+    rentalAdsElement.dataIndex = index;
     rentalAdsElement.style = getCoordinates(pin);
     imgAds.src = pin.author.avatar;
     imgAds.alt = pin.offer.title;

@@ -19,11 +19,12 @@
   };
 
   var changeDiasbledOnPageElements = function (show) {
+    var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
+
     if (show) {
       userDialogMap.classList.remove('map--faded');
       userDialogAdForm.classList.remove('ad-form--disabled');
 
-      var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
       adFormElements.forEach(function (element) {
         element.removeAttribute('disabled', '');
       });
@@ -31,7 +32,6 @@
       userDialogMap.classList.add('map--faded');
       userDialogAdForm.classList.add('ad-form--disabled');
 
-      var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
       adFormElements.forEach(function (element) {
         element.setAttribute('disabled', '');
       });

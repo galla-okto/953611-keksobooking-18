@@ -8,9 +8,9 @@
   window.showRentalAds = function () {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < rentalAds.length; i++) {
-      fragment.appendChild(window.renderMapIn(rentalAds[i], i));
-    };
+    for (var i = 0; i < window.rentalAds.length; i++) {
+      fragment.appendChild(window.renderMapIn(window.rentalAds[i], i));
+    }
 
     mapPins.appendChild(fragment);
   };
