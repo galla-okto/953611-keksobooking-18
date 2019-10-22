@@ -50,8 +50,8 @@
   };
 
   window.setAddress = function (evt) {
-    var y = evt.currentTarget.getBoundingClientRect().y;
-    var x = evt.currentTarget.getBoundingClientRect().x;
+    var y = evt.srcElement.getBoundingClientRect().y;
+    var x = Math.round(evt.srcElement.getBoundingClientRect().x);
     userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
   };
 

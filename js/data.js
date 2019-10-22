@@ -26,6 +26,9 @@
 
   window.MAP_WIDTH = MAP_WIDTH;
   window.MAP_HEIGHT = MAP_HEIGHT;
+  window.Y_MIN = Y_MIN;
+  window.Y_MAX = Y_MAX;
+  window.MAPIN_HEIGHT = MAPIN_HEIGHT;
 
   var getAvatar = function (index) {
     return PATH_AVATAR + (index > NUMBER_MAX ? '' : '0') + index + '.png';
