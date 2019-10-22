@@ -1,0 +1,59 @@
+'use strict';
+
+(function () {
+  var TEXT_NO_GUESTS_HOUSE = 'Допустимое значение - не для гостей';
+  var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
+  var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
+  var userDialogType = document.querySelector('fieldset.ad-form__element select[name=type]');
+  var userDialogPrice = document.querySelector('fieldset.ad-form__element input[name=price]');
+  var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
+  var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
+  var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
+
+  var textGuestsHouse = function (roomNumber) {
+    return 'Допустимое количество гостей - не более ' + Math.max.apply(Math, window.util.RoomGuestsMap[roomNumber.value]) + ', но больше 0';
+  };
+
+  window.onRoomsGuestsChange = function () {
+    var roomNumber = userDialogRooms.options[userDialogRooms.selectedIndex];
+    var capacity = userDialogCapacity.options[userDialogCapacity.selectedIndex];
+
+    var isCapacityEnough = window.util.RoomGuestsMap[roomNumber.value].some(function (elem) {
+      return elem === Number(capacity.value);
+    });
+    var message = '';
+
+    if (isCapacityEnough === false && roomNumber.value === window.util.NO_GUESTS_HOUSE) {
+      message = TEXT_NO_GUESTS_HOUSE;
+    } else if (isCapacityEnough === false) {
+      message = textGuestsHouse(roomNumber);
+    }
+    userDialogCapacity.setCustomValidity(message);
+  };
+
+  window.onTypeMinPriceChange = function () {
+    var type = userDialogType.options[userDialogType.selectedIndex];
+    userDialogPrice.placeholder = window.util.MinPrice[type.value.toUpperCase()];
+    userDialogPrice.min = window.util.MinPrice[type.value.toUpperCase()];
+  };
+
+  window.onTimeInTimeOutChange = function () {
+    userDialogTimeOut.selectedIndex = userDialogTimeIn.selectedIndex;
+  };
+
+  window.onTimeOutTimeInChange = function () {
+    userDialogTimeIn.selectedIndex = userDialogTimeOut.selectedIndex;
+  };
+
+  var setAddressInitial = function () {
+    userDialogAddress.value = window.MAP_WIDTH / 2 + ' ' + window.MAP_HEIGHT / 2;
+  };
+
+  window.setAddress = function (evt) {
+    var y = evt.currentTarget.getBoundingClientRect().y;
+    var x = evt.currentTarget.getBoundingClientRect().x;
+    userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
+  };
+
+  setAddressInitial();
+})();
