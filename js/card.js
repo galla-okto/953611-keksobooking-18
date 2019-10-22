@@ -60,8 +60,8 @@
   };
 
   window.fillCard = function (evt) {
-    var currentOffer = window.rentalAds[evt.currentTarget.data_index].offer;
-    var currentAuthor = window.rentalAds[evt.currentTarget.data_index].author;
+    var currentOffer = window.rentalAds[evt.currentTarget.dataIndex].offer;
+    var currentAuthor = window.rentalAds[evt.currentTarget.dataIndex].author;
 
     if (currentOffer !== undefined) {
       fillMapCardSimpleText(currentAuthor, currentOffer);
