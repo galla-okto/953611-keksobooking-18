@@ -5,6 +5,8 @@
   var mapPins = userDialogMap.querySelector('.map__pins');
   var mapPinMain = mapPins.querySelector('.map__pin--main');
 
+  window.mapPinMain = mapPinMain;
+
   window.showRentalAds = function () {
     var fragment = document.createDocumentFragment();
 
@@ -16,15 +18,21 @@
   };
 
   var checkCoordsY = function (coordY) {
-    coordY = (coordY < window.Y_MIN) ? window.Y_MIN : coordY;
-    coordY = (coordY > window.Y_MAX) ? window.Y_MAX : coordY;
+    if (coordY < window.const.Y_MIN) {
+      coordY = window.const.Y_MIN;
+    } else if (coordY > window.const.Y_MAX) {
+      coordY = window.const.Y_MAX;
+    }
 
     return coordY;
   };
 
   var checkCoordsX = function (coordX) {
-    coordX = coordX < -window.MAPIN_WIDTH / 2 + 1 ? -window.MAPIN_WIDTH / 2 + 1 : coordX;
-    coordX = coordX > window.MAP_WIDTH - window.MAPIN_WIDTH / 2 - 1 ? window.MAP_WIDTH - window.MAPIN_WIDTH / 2 - 1 : coordX;
+    if (coordX < -window.const.MAPIN_WIDTH / 2 + 1) {
+      coordX = -window.const.MAPIN_WIDTH / 2 + 1;
+    } else if (coordX > window.const.MAP_WIDTH - window.const.MAPIN_WIDTH / 2 - 1) {
+      coordX = window.const.MAP_WIDTH - window.const.MAPIN_WIDTH / 2 - 1;
+    }
 
     return coordX;
   };
@@ -55,6 +63,8 @@
 
       mapPinMain.style.top = checkCoordsY(mapPinMain.offsetTop - shift.y) + 'px';
       mapPinMain.style.left = checkCoordsX(mapPinMain.offsetLeft - shift.x) + 'px';
+
+      window.setAddress(moveEvt);
     };
 
     var onMouseUp = function (upEvt) {

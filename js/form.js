@@ -46,12 +46,12 @@
   };
 
   var setAddressInitial = function () {
-    userDialogAddress.value = window.MAP_WIDTH / 2 + ' ' + window.MAP_HEIGHT / 2;
+    userDialogAddress.value = window.const.MAP_WIDTH / 2 + ' ' + window.const.MAP_HEIGHT / 2;
   };
 
   window.setAddress = function (evt) {
-    var y = evt.srcElement.getBoundingClientRect().y;
-    var x = Math.round(evt.srcElement.getBoundingClientRect().x);
+    var y = window.mapPinMain.offsetTop; //evt.srcElement.getBoundingClientRect().y;
+    var x = window.mapPinMain.offsetLeft;// Math.round(evt.srcElement.getBoundingClientRect().x);
     userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
   };
 
