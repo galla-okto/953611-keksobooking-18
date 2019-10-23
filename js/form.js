@@ -49,9 +49,9 @@
     userDialogAddress.value = window.const.MAP_WIDTH / 2 + ' ' + window.const.MAP_HEIGHT / 2;
   };
 
-  window.setAddress = function (evt) {
-    var y = window.mapPinMain.offsetTop; //evt.srcElement.getBoundingClientRect().y;
-    var x = window.mapPinMain.offsetLeft;// Math.round(evt.srcElement.getBoundingClientRect().x);
+  window.setAddress = function () {
+    var y = window.mapPinMain.offsetTop;
+    var x = window.mapPinMain.offsetLeft;
     userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
   };
 
