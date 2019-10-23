@@ -23,7 +23,7 @@
   };
 
   var checkCoordsX = function (coordX) {
-    coordX = coordX < - window.MAPIN_WIDTH / 2 + 1 ? - window.MAPIN_WIDTH / 2 + 1 : coordX;
+    coordX = coordX < -window.MAPIN_WIDTH / 2 + 1 ? -window.MAPIN_WIDTH / 2 + 1 : coordX;
     coordX = coordX > window.MAP_WIDTH - window.MAPIN_WIDTH / 2 - 1 ? window.MAP_WIDTH - window.MAPIN_WIDTH / 2 - 1 : coordX;
 
     return coordX;
