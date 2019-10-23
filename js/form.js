@@ -52,7 +52,7 @@
   window.setAddress = function () {
     var y = window.mapPinMain.offsetTop;
     var x = window.mapPinMain.offsetLeft;
-    userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y + pageYOffset);
+    userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y);
   };
 
   setAddressInitial();
