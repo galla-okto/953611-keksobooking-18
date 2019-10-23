@@ -17,14 +17,14 @@
 
   var checkCoordsY = function (coordY) {
     coordY = (coordY < window.Y_MIN) ? window.Y_MIN : coordY;
-    coordY = (coordY > window.Y_MAX + window.MAPIN_HEIGHT) ? window.Y_MAX + window.MAPIN_HEIGHT : coordY;
+    coordY = (coordY > window.Y_MAX) ? window.Y_MAX : coordY;
 
     return coordY;
   };
 
   var checkCoordsX = function (coordX) {
-    coordX = coordX < 0 ? 1 : coordX;
-    coordX = coordX > window.MAP_WIDTH ? window.MAP_WIDTH : coordX;
+    coordX = coordX < - window.MAPIN_WIDTH / 2 + 1 ? - window.MAPIN_WIDTH / 2 + 1 : coordX;
+    coordX = coordX > window.MAP_WIDTH - window.MAPIN_WIDTH / 2 - 1 ? window.MAP_WIDTH - window.MAPIN_WIDTH / 2 - 1 : coordX;
 
     return coordX;
   };
