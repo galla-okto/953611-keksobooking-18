@@ -4,7 +4,7 @@
   var similarMapInTemplate = document.querySelector('#pin').content.querySelector('button');
 
   var getCoordinates = function (pin) {
-    return 'left: ' + pin.location.x + 'px; top: ' + pin.location.y + 'px';
+    return 'left: ' + (pin.location.x - window.const.MAPIN_WIDTH / 2) + 'px; top: ' + (pin.location.y - window.const.MAPIN_HEIGHT) + 'px';
   };
 
   window.renderMapIn = function (pin, index) {
