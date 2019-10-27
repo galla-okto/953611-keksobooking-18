@@ -1,17 +1,27 @@
 'use strict';
 
 (function () {
-  var RENTAL_ADS_QUANTITY = 8;
   var MAPIN_WIDTH = 62;
   var MAPIN_HEIGHT = 84;
-  var NUMBER_MAX = 9;
   var MAP_WIDTH = 1200;
   var MAP_HEIGHT = 750;
+  var Y_MIN = 130;
+  var Y_MAX = 624;
+  window.const = {
+    MAP_WIDTH: MAP_WIDTH,
+    MAP_HEIGHT: MAP_HEIGHT,
+    Y_MIN: Y_MIN,
+    Y_MAX: Y_MAX,
+    MAPIN_HEIGHT: MAPIN_HEIGHT,
+    MAPIN_WIDTH: MAPIN_WIDTH
+  };
+
+  /*
+  var RENTAL_ADS_QUANTITY = 8;
+  var NUMBER_MAX = 9;
   var PRICE_MAX = 2000;
   var ROOMS_MAX = 5;
   var GUESTS_MAX = 8;
-  var Y_MIN = 130;
-  var Y_MAX = 624;
   var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
   var CHECK_IN = ['12:00', '13:00', '14:00'];
   var CHECK_OUT = ['12:00', '13:00', '14:00'];
@@ -23,15 +33,6 @@
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var PATH_AVATAR = 'img/avatars/user';
-
-  window.const = {
-    MAP_WIDTH: MAP_WIDTH,
-    MAP_HEIGHT: MAP_HEIGHT,
-    Y_MIN: Y_MIN,
-    Y_MAX: Y_MAX,
-    MAPIN_HEIGHT: MAPIN_HEIGHT,
-    MAPIN_WIDTH: MAPIN_WIDTH
-  };
 
   var getAvatar = function (index) {
     return PATH_AVATAR + (index > NUMBER_MAX ? '' : '0') + index + '.png';
@@ -100,8 +101,21 @@
     return rentalAds;
   };
 
-  var rentalAds = getRentalAds();
+  var rentalAds = getRentalAds();*/
 
-  window.rentalAds = rentalAds;
+  var onSuccess = function (rentalAds) {
+    window.rentalAds = rentalAds;
+  };
+
+  var onError = function (errorMessage) {
+    var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error__message');
+    var errMessage = similarErrorTemplate.cloneNode(true);
+
+    errMessage.textContent = errorMessage;
+
+    document.body.insertAdjacentElement('afterbegin', errMessage);
+  };
+
+  window.load(onSuccess, onError);
 
 })();
