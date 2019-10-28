@@ -5,7 +5,7 @@
   var MAPIN_HEIGHT = 84;
   var MAP_WIDTH = 1200;
   var MAP_HEIGHT = 750;
-  var Y_MIN = 130;
+  var Y_MIN = 130 - MAPIN_HEIGHT;
   var Y_MAX = 624;
   window.const = {
     MAP_WIDTH: MAP_WIDTH,
@@ -56,7 +56,7 @@
     }
 
     return photos;
-  };
+  };*/
 
   window.getMapinX = function (initialX) {
     return initialX + MAPIN_WIDTH / 2;
@@ -66,7 +66,7 @@
     return initialY + MAPIN_HEIGHT;
   };
 
-  var createRentalAd = function (index) {
+  /*var createRentalAd = function (index) {
     return {
       'author': {
         'avatar': getAvatar(index)
