@@ -66,7 +66,8 @@
     return initialY + MAPIN_HEIGHT;
   };
 
-  /*var createRentalAd = function (index) {
+  /*
+  var createRentalAd = function (index) {
     return {
       'author': {
         'avatar': getAvatar(index)
