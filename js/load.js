@@ -2,16 +2,27 @@
 
 (function () {
   var URL = 'https://js.dump.academy/keksobooking/data';
+  var RESPONSE_TYPE = 'json';
+  var STATUS_SUCCESS = 200;
+  var RESPONSE_TIME = 10000;
+
+  var getErrorMessageStatus = function (xhr) {
+    return 'Статус ответа: ' + xhr.status + ' ' + xhr.statusText;
+  };
+
+  var getErrorMessageTimeout = function (xhr) {
+    return 'Запрос не успел выполниться за ' + xhr.timeout + 'мс';
+  };
 
   window.load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+    xhr.responseType = RESPONSE_TYPE;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === STATUS_SUCCESS) {
         onSuccess(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError(getErrorMessageStatus(xhr));
       }
     });
 
@@ -20,10 +31,10 @@
     });
 
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onError(getErrorMessageTimeout(xhr));
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = RESPONSE_TIME;
 
     xhr.open('GET', URL);
     xhr.send();
