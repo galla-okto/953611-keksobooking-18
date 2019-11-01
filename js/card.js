@@ -91,7 +91,7 @@
     }
   };
 
-  var closePopup = function () {
+  window.closePopup = function () {
     mapCardElement.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
   };

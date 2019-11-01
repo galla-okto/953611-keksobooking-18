@@ -17,6 +17,12 @@
     mapPins.appendChild(fragment);
   };
 
+  window.deleteRentalAds = function () {
+    while ((mapPins.lastChild) && (mapPins.children.length > 2)) {
+      mapPins.removeChild(mapPins.lastChild);
+    }
+  };
+
   var checkCoordsY = function (coordY) {
     if (coordY < window.const.Y_MIN) {
       coordY = window.const.Y_MIN;
@@ -35,6 +41,11 @@
     }
 
     return coordX;
+  };
+
+  window.setMapPinMainInitialCoords = function () {
+    mapPinMain.style.top = window.const.MAP_HEIGHT / 2 + 'px';
+    mapPinMain.style.left = window.const.MAP_WIDTH / 2 + 'px';
   };
 
   var onMapInMouseDown = function (evt) {
