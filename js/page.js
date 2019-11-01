@@ -55,7 +55,7 @@
   };
 
   var setInActivePage = function () {
-    changeDiasbledOnPageElements(false);
+    window.changeDiasbledOnPageElements(false);
   };
 
   setInActivePage();
