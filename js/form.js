@@ -72,7 +72,7 @@
   setAddressInitial();
 
   formAdForm.addEventListener('submit', function (evt) {
-    window.upload(new FormData(formAdForm), function (response) {
+    window.upload(new FormData(formAdForm), function () {
       setPageInitial();
       window.isActive = false;
       formAdForm.classList.add('ad-form--disabled');

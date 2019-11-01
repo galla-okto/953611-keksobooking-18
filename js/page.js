@@ -47,7 +47,7 @@
 
     window.isActive = true;
 
-    changeDiasbledOnPageElements(true);
+    window.changeDiasbledOnPageElements(true);
 
     window.showRentalAds();
 

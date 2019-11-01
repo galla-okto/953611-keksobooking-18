@@ -24,7 +24,7 @@
     return initialY + MAPIN_HEIGHT;
   };
 
-  var onSuccessAds= function (rentalAds) {
+  var onSuccessAds = function (rentalAds) {
     window.rentalAds = rentalAds;
   };
 
@@ -78,6 +78,6 @@
     document.addEventListener('keydown', onErrorEscPress);
   };
 
-  window.load(onSuccessAds, onError);
+  window.load(onSuccessAds, window.onError);
 
 })();

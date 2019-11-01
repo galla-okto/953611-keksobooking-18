@@ -85,15 +85,15 @@
     document.addEventListener('keydown', onPopupEscPress);
   };
 
+  window.closePopup = function () {
+    mapCardElement.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+  };
+
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.ESC_KEYCODE) {
       closePopup();
     }
-  };
-
-  window.closePopup = function () {
-    mapCardElement.classList.add('hidden');
-    document.removeEventListener('keydown', onPopupEscPress);
   };
 
   var onPopupCloseClick = function () {
