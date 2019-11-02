@@ -22,8 +22,10 @@
     100: [0]
   };
   var NO_GUESTS_HOUSE = '100';
+  var STATUS_SUCCESS = 200;
 
   window.util = {
+    STATUS_SUCCESS: STATUS_SUCCESS,
     ESC_KEYCODE: ESC_KEYCODE,
     ENTER_KEYCODE: ENTER_KEYCODE,
     Type: Type,

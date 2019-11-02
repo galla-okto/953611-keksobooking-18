@@ -69,20 +69,26 @@
     setAddressInitial();
   };
 
+  var onSubmitSuccess = function () {
+    setPageInitial();
+    window.isActive = false;
+    formAdForm.classList.add('ad-form--disabled');
+    window.onSuccess();
+  };
+
+  var onSubmitError = function (responseMessage) {
+    setPageInitial();
+    window.isActive = false;
+    formAdForm.classList.add('ad-form--disabled');
+    window.onError(responseMessage);
+  };
+
+  var onSubmitClick = function (evt) {
+    window.upload(new FormData(formAdForm), onSubmitSuccess, onSubmitError);
+    evt.preventDefault();
+  };
+
   setAddressInitial();
 
-  formAdForm.addEventListener('submit', function (evt) {
-    window.upload(new FormData(formAdForm), function () {
-      setPageInitial();
-      window.isActive = false;
-      formAdForm.classList.add('ad-form--disabled');
-      window.onSuccess();
-    }, function (responseMessage) {
-      setPageInitial();
-      window.isActive = false;
-      formAdForm.classList.add('ad-form--disabled');
-      window.onError(responseMessage);
-    });
-    evt.preventDefault();
-  });
+  formAdForm.addEventListener('submit', onSubmitClick);
 })();

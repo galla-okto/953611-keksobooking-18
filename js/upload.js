@@ -2,16 +2,17 @@
 
 (function () {
   var URL = 'https://js.dump.academy/keksobooking';
+  var EXT_RESPONSE_TYPE = 'json';
 
   window.upload = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+    xhr.responseType = EXT_RESPONSE_TYPE;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === window.util.STATUS_SUCCESS) {
         onSuccess(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError(window.getErrorMessageStatus(xhr));
       }
     });
 
