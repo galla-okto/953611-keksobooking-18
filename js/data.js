@@ -7,6 +7,7 @@
   var MAP_HEIGHT = 750;
   var Y_MIN = 130 - MAPIN_HEIGHT;
   var Y_MAX = 630 - MAPIN_HEIGHT;
+
   window.const = {
     MAP_WIDTH: MAP_WIDTH,
     MAP_HEIGHT: MAP_HEIGHT,

@@ -21,7 +21,7 @@
       if (xhr.status === window.util.STATUS_SUCCESS) {
         onSuccess(xhr.response);
       } else {
-        onError(getErrorMessageStatus(xhr));
+        onError(window.getErrorMessageStatus(xhr));
       }
     });
 
