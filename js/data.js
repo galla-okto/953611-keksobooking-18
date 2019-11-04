@@ -7,6 +7,7 @@
   var MAP_HEIGHT = 750;
   var Y_MIN = 130 - MAPIN_HEIGHT;
   var Y_MAX = 630 - MAPIN_HEIGHT;
+
   window.const = {
     MAP_WIDTH: MAP_WIDTH,
     MAP_HEIGHT: MAP_HEIGHT,
@@ -24,19 +25,60 @@
     return initialY + MAPIN_HEIGHT;
   };
 
-  var onSuccess = function (rentalAds) {
+  var onSuccessAds = function (rentalAds) {
     window.rentalAds = rentalAds;
   };
 
-  var onError = function (errorMessage) {
-    var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error__message');
-    var errMessage = similarErrorTemplate.cloneNode(true);
+  var onSuccessClick = function () {
+    var sccMessage = document.querySelector('.success');
 
-    errMessage.textContent = errorMessage;
+    sccMessage.parentNode.removeChild(sccMessage);
 
-    document.body.insertAdjacentElement('afterbegin', errMessage);
+    document.removeEventListener('keydown', onSuccessEscPress);
   };
 
-  window.load(onSuccess, onError);
+  var onSuccessEscPress = function (evt) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
+      onSuccessClick();
+    }
+  };
+
+  var onErrorClick = function () {
+    var errMessage = document.querySelector('.error');
+
+    errMessage.parentNode.removeChild(errMessage);
+
+    document.removeEventListener('keydown', onErrorEscPress);
+  };
+
+  var onErrorEscPress = function (evt) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
+      onErrorClick();
+    }
+  };
+
+  window.onSuccess = function () {
+    var similarSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+    var sccMessage = similarSuccessTemplate.cloneNode(true);
+
+    document.body.insertAdjacentElement('afterbegin', sccMessage);
+
+    sccMessage.addEventListener('click', onSuccessClick);
+    document.addEventListener('keydown', onSuccessEscPress);
+  };
+
+  window.onError = function (errorMessage) {
+    var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errMessage = similarErrorTemplate.cloneNode(true);
+
+    errMessage.querySelector('.error__message').textContent = errorMessage;
+
+    document.body.insertAdjacentElement('afterbegin', errMessage);
+
+    errMessage.addEventListener('click', onErrorClick);
+    document.addEventListener('keydown', onErrorEscPress);
+  };
+
+  window.load(onSuccessAds, window.onError);
 
 })();

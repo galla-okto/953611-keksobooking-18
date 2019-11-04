@@ -2,6 +2,7 @@
 
 (function () {
   var TEXT_NO_GUESTS_HOUSE = 'Допустимое значение - не для гостей';
+  var formAdForm = document.querySelector('.ad-form');
   var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
   var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
   var userDialogType = document.querySelector('fieldset.ad-form__element select[name=type]');
@@ -55,5 +56,39 @@
     userDialogAddress.value = window.getMapinX(x + pageXOffset) + ' ' + window.getMapinY(y);
   };
 
+  var setInputToNull = function () {
+    formAdForm.reset();
+  };
+
+  var setPageInitial = function () {
+    setInputToNull();
+    window.changeDiasbledOnPageElements(false);
+    window.deleteRentalAds();
+    window.closePopup();
+    window.setMapPinMainInitialCoords();
+    setAddressInitial();
+  };
+
+  var onSubmitSuccess = function () {
+    setPageInitial();
+    window.isActive = false;
+    formAdForm.classList.add('ad-form--disabled');
+    window.onSuccess();
+  };
+
+  var onSubmitError = function (responseMessage) {
+    setPageInitial();
+    window.isActive = false;
+    formAdForm.classList.add('ad-form--disabled');
+    window.onError(responseMessage);
+  };
+
+  var onSubmitClick = function (evt) {
+    window.upload(new FormData(formAdForm), onSubmitSuccess, onSubmitError);
+    evt.preventDefault();
+  };
+
   setAddressInitial();
+
+  formAdForm.addEventListener('submit', onSubmitClick);
 })();

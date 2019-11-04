@@ -3,10 +3,9 @@
 (function () {
   var URL = 'https://js.dump.academy/keksobooking/data';
   var RESPONSE_TYPE = 'json';
-  var STATUS_SUCCESS = 200;
   var RESPONSE_TIME = 10000;
 
-  var getErrorMessageStatus = function (xhr) {
+  window.getErrorMessageStatus = function (xhr) {
     return 'Статус ответа: ' + xhr.status + ' ' + xhr.statusText;
   };
 
@@ -19,10 +18,10 @@
     xhr.responseType = RESPONSE_TYPE;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS_SUCCESS) {
+      if (xhr.status === window.util.STATUS_SUCCESS) {
         onSuccess(xhr.response);
       } else {
-        onError(getErrorMessageStatus(xhr));
+        onError(window.getErrorMessageStatus(xhr));
       }
     });
 

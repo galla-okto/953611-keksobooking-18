@@ -10,6 +10,8 @@
   var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
   var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
 
+  window.isActive = isActive;
+
   var setHadlerOnPageElements = function () {
     userDialogCapacity.addEventListener('change', window.onRoomsGuestsChange);
     userDialogRooms.addEventListener('change', window.onRoomsGuestsChange);
@@ -18,7 +20,7 @@
     userDialogTimeOut.addEventListener('change', window.onTimeOutTimeInChange);
   };
 
-  var changeDiasbledOnPageElements = function (show) {
+  window.changeDiasbledOnPageElements = function (show) {
     var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
 
     if (show) {
@@ -39,13 +41,13 @@
   };
 
   window.setActivePage = function () {
-    if (isActive) {
+    if (window.isActive) {
       return;
     }
 
-    isActive = true;
+    window.isActive = true;
 
-    changeDiasbledOnPageElements(true);
+    window.changeDiasbledOnPageElements(true);
 
     window.showRentalAds();
 
@@ -53,7 +55,7 @@
   };
 
   var setInActivePage = function () {
-    changeDiasbledOnPageElements(false);
+    window.changeDiasbledOnPageElements(false);
   };
 
   setInActivePage();

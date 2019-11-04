@@ -85,15 +85,15 @@
     document.addEventListener('keydown', onPopupEscPress);
   };
 
-  var onPopupEscPress = function (evt) {
-    if (evt.keyCode === window.util.ESC_KEYCODE) {
-      closePopup();
-    }
-  };
-
-  var closePopup = function () {
+  window.closePopup = function () {
     mapCardElement.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
+  };
+
+  var onPopupEscPress = function (evt) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
+      window.closePopup();
+    }
   };
 
   var onPopupCloseClick = function () {
