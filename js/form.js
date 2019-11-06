@@ -50,7 +50,7 @@
   window.onFilterDialogTypeChange = function () {
     var housingType = filterDialogType.value;
 
-    var sameTypeRentalAds = window.rentalAds.filter(function(it) {
+    var sameTypeRentalAds = window.rentalAds.filter(function (it) {
       return it.offer.type === housingType;
     });
 

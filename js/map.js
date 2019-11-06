@@ -14,7 +14,7 @@
       fragment.appendChild(window.renderMapIn(element, window.rentalAds.indexOf(element)));
     });
 
-    /*for (var i = 0; i < NUMBER_MAP_PINS; i++) {
+    /* for (var i = 0; i < NUMBER_MAP_PINS; i++) {
       fragment.appendChild(window.renderMapIn(arrRentalAds[i], window.rentalAds.indexOf(arrRentalAds[i]))); //window.rentalAds[i]
     }*/
 
