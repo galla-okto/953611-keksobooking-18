@@ -7,12 +7,16 @@
 
   window.mapPinMain = mapPinMain;
 
-  window.showRentalAds = function () {
+  window.showRentalAds = function (arrRentalAds) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < window.rentalAds.length; i++) {
-      fragment.appendChild(window.renderMapIn(window.rentalAds[i], i));
-    }
+    arrRentalAds.forEach(function (element) {
+      fragment.appendChild(window.renderMapIn(element, window.rentalAds.indexOf(element)));
+    });
+
+    /* for (var i = 0; i < NUMBER_MAP_PINS; i++) {
+      fragment.appendChild(window.renderMapIn(arrRentalAds[i], window.rentalAds.indexOf(arrRentalAds[i]))); //window.rentalAds[i]
+    }*/
 
     mapPins.appendChild(fragment);
   };

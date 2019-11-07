@@ -9,6 +9,7 @@
   var userDialogType = document.querySelector('fieldset.ad-form__element select[name=type]');
   var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
   var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
+  var filterDialogType = document.querySelector('.map__filters select[name=housing-type]');
 
   window.isActive = isActive;
 
@@ -18,6 +19,7 @@
     userDialogType.addEventListener('change', window.onTypeMinPriceChange);
     userDialogTimeIn.addEventListener('change', window.onTimeInTimeOutChange);
     userDialogTimeOut.addEventListener('change', window.onTimeOutTimeInChange);
+    filterDialogType.addEventListener('change', window.onFilterDialogTypeChange);
   };
 
   window.changeDiasbledOnPageElements = function (show) {
@@ -49,7 +51,7 @@
 
     window.changeDiasbledOnPageElements(true);
 
-    window.showRentalAds();
+    window.showRentalAds(window.rentalAds.slice(0, window.util.NUMBER_MAP_PINS));
 
     setHadlerOnPageElements();
   };

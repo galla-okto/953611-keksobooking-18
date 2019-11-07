@@ -10,6 +10,7 @@
   var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
   var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
   var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
+  var filterDialogType = document.querySelector('.map__filters select[name=housing-type]');
 
   var textGuestsHouse = function (roomNumber) {
     return 'Допустимое количество гостей - не более ' + Math.max.apply(Math, window.util.RoomGuestsMap[roomNumber.value]) + ', но больше 0';
@@ -44,6 +45,17 @@
 
   window.onTimeOutTimeInChange = function () {
     userDialogTimeIn.selectedIndex = userDialogTimeOut.selectedIndex;
+  };
+
+  window.onFilterDialogTypeChange = function () {
+    var housingType = filterDialogType.value;
+
+    var sameTypeRentalAds = window.rentalAds.filter(function (it) {
+      return it.offer.type === housingType;
+    });
+
+    window.deleteRentalAds();
+    window.showRentalAds(sameTypeRentalAds.slice(0, window.util.NUMBER_MAP_PINS));
   };
 
   var setAddressInitial = function () {

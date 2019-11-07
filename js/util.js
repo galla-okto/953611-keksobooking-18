@@ -3,6 +3,7 @@
 (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
+  var NUMBER_MAP_PINS = 5;
   var Type = {
     BUNGALO: 'Bungalo',
     HOUSE: 'House',
@@ -25,6 +26,7 @@
   var STATUS_SUCCESS = 200;
 
   window.util = {
+    NUMBER_MAP_PINS: NUMBER_MAP_PINS,
     STATUS_SUCCESS: STATUS_SUCCESS,
     ESC_KEYCODE: ESC_KEYCODE,
     ENTER_KEYCODE: ENTER_KEYCODE,
