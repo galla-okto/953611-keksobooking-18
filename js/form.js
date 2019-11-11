@@ -70,15 +70,15 @@
     } else if (housingPrice === window.util.TypePriceMap['high'][0]) {
       return ((element.offer.price >= window.util.TypePriceMap['high'][1]) && (element.offer.price <= window.util.TypePriceMap['high'][2]));
     }
-    return;
+    return true;
   };
 
   var getFilterRooms = function (element, housingRooms) {
-    return element.offer.rooms === ((housingRooms === window.util.ANY) ? element.offer.rooms : parseInt(housingRooms));
+    return element.offer.rooms === ((housingRooms === window.util.ANY) ? element.offer.rooms : parseInt(housingRooms, 10));
   };
 
   var getFilterGuests = function (element, housingGuests) {
-    return element.offer.guests === ((housingGuests === window.util.ANY) ? element.offer.guests : parseInt(housingGuests));
+    return element.offer.guests === ((housingGuests === window.util.ANY) ? element.offer.guests : parseInt(housingGuests, 10));
   };
 
   var getFilterWifi = function (element, housingWifi) {
