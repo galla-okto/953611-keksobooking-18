@@ -25,8 +25,8 @@
   };
   var TypePriceMap = {
     low: ['low', 0, 10000],
-    middle: ['middle', 10001,50000],
-    high: ['high', 50001,999999]
+    middle: ['middle', 10001, 50000],
+    high: ['high', 50001, 999999]
   };
   var NO_GUESTS_HOUSE = '100';
   var STATUS_SUCCESS = 200;

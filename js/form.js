@@ -82,42 +82,42 @@
 
   var getFilterWifi = function (element, housingWifi) {
     if (housingWifi) {
-      return element.offer.features.indexOf("wifi") != -1;
+      return element.offer.features.indexOf('wifi') !== -1;
     }
     return true;
   };
 
   var getFilterDishwasher = function (element, housingDishwasher) {
     if (housingDishwasher) {
-      return element.offer.features.indexOf("dishwasher") != -1;
+      return element.offer.features.indexOf('dishwasher') !== -1;
     }
     return true;
   };
 
   var getFilterParking = function (element, housingParking) {
     if (housingParking) {
-      return element.offer.features.indexOf("parking") != -1;
+      return element.offer.features.indexOf('parking') !== -1;
     }
     return true;
   };
 
   var getFilterWasher = function (element, housingWasher) {
     if (housingWasher) {
-      return element.offer.features.indexOf("washer") != -1;
+      return element.offer.features.indexOf('washer') !== -1;
     }
     return true;
   };
 
   var getFilterElevator = function (element, housingElevator) {
     if (housingElevator) {
-      return element.offer.features.indexOf("elevator") != -1;
+      return element.offer.features.indexOf('elevator') !== -1;
     }
     return true;
   };
 
   var getFilterConditioner = function (element, housingConditioner) {
     if (housingConditioner) {
-      return element.offer.features.indexOf("conditioner") != -1;
+      return element.offer.features.indexOf('conditioner') !== -1;
     }
     return true;
   };
@@ -157,43 +157,43 @@
     window.showRentalAds(sameTypeRentalAds.slice(0, window.util.NUMBER_MAP_PINS));
   };
 
-  window.onFilterDialogTypeChange = window.debounce( function () {
+  window.onFilterDialogTypeChange = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogPriceChange = window.debounce( function () {
+  window.onFilterDialogPriceChange = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogRoomsChange = window.debounce( function () {
+  window.onFilterDialogRoomsChange = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogGuestsChange = window.debounce( function () {
+  window.onFilterDialogGuestsChange = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogWifiClick = window.debounce( function () {
+  window.onFilterDialogWifiClick = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogDishwasherClick = window.debounce( function () {
+  window.onFilterDialogDishwasherClick = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogParkingClick = window.debounce( function () {
+  window.onFilterDialogParkingClick = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogWasherClick = window.debounce( function () {
+  window.onFilterDialogWasherClick = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogElevatorClick = window.debounce( function () {
+  window.onFilterDialogElevatorClick = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
-  window.onFilterDialogConditionerClick = window.debounce( function () {
+  window.onFilterDialogConditionerClick = window.debounce(function () {
     showRentalAdsWithFilters();
   });
 
