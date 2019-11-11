@@ -70,6 +70,7 @@
     } else if (housingPrice === window.util.TypePriceMap['high'][0]) {
       return ((element.offer.price >= window.util.TypePriceMap['high'][1]) && (element.offer.price <= window.util.TypePriceMap['high'][2]));
     }
+    return;
   };
 
   var getFilterRooms = function (element, housingRooms) {
