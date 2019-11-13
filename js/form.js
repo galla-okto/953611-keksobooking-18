@@ -101,7 +101,7 @@
       if (element.checked) {
         housingFeatures.push(element.value);
       }
-    })
+    });
 
     return housingFeatures;
   };
