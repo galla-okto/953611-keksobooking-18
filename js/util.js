@@ -6,6 +6,7 @@
   var NUMBER_MAP_PINS = 5;
   var ANY = 'any';
   var Type = {
+    ANY: 'any',
     BUNGALO: 'Bungalo',
     HOUSE: 'House',
     PALACE: 'Palace',
@@ -24,9 +25,10 @@
     100: [0]
   };
   var TypePriceMap = {
-    low: ['low', 0, 10000],
-    middle: ['middle', 10001, 50000],
-    high: ['high', 50001, 999999]
+    ANY : {min: 'any'},
+    LOW : {min: 0, max: 1000},
+    MIDDLE : {min: 10001, max: 50000},
+    HIGH : {min: 50001, max: 9999999}
   };
   var NO_GUESTS_HOUSE = '100';
   var STATUS_SUCCESS = 200;
@@ -42,6 +44,7 @@
     RoomGuestsMap: RoomGuestsMap,
     NO_GUESTS_HOUSE: NO_GUESTS_HOUSE,
     TypePriceMap: TypePriceMap,
+
     getRandom: function (max, min, including) {
       return Math.round(Math.random() * (max - (min ? min : 0) - (including ? 1 : 0))) + (min ? min : 0);
     }
