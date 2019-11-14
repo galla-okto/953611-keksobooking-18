@@ -2,6 +2,7 @@
 
 (function () {
   var isActive = false;
+
   var userDialogAdForm = document.querySelector('.ad-form');
   var userDialogMap = document.querySelector('.map');
   var userDialogCapacity = document.querySelector('fieldset.ad-form__element select[name=capacity]');
@@ -9,7 +10,12 @@
   var userDialogType = document.querySelector('fieldset.ad-form__element select[name=type]');
   var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
   var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
+
   var filterDialogType = document.querySelector('.map__filters select[name=housing-type]');
+  var filterDialogPrice = document.querySelector('.map__filters select[name=housing-price]');
+  var filterDialogRooms = document.querySelector('.map__filters select[name=housing-rooms]');
+  var filterDialogGuests = document.querySelector('.map__filters select[name=housing-guests]');
+  var filterDialogFeatures = document.querySelector('.map__features');
 
   window.isActive = isActive;
 
@@ -19,7 +25,12 @@
     userDialogType.addEventListener('change', window.onTypeMinPriceChange);
     userDialogTimeIn.addEventListener('change', window.onTimeInTimeOutChange);
     userDialogTimeOut.addEventListener('change', window.onTimeOutTimeInChange);
+
     filterDialogType.addEventListener('change', window.onFilterDialogTypeChange);
+    filterDialogPrice.addEventListener('change', window.onFilterDialogPriceChange);
+    filterDialogRooms.addEventListener('change', window.onFilterDialogRoomsChange);
+    filterDialogGuests.addEventListener('change', window.onFilterDialogGuestsChange);
+    filterDialogFeatures.addEventListener('click', window.onFilterDialogFeaturesClick);
   };
 
   window.changeDiasbledOnPageElements = function (show) {
