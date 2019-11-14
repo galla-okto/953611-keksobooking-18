@@ -3,6 +3,8 @@
 (function () {
   var TEXT_NO_GUESTS_HOUSE = 'Допустимое значение - не для гостей';
 
+  var NAME_FILE_MUFFIN_GREY = "img/muffin-grey.svg";
+
   var formAdForm = document.querySelector('.ad-form');
 
   var userDialogRooms = document.querySelector('fieldset.ad-form__element select[name=rooms]');
@@ -12,6 +14,8 @@
   var userDialogTimeIn = document.querySelector('fieldset.ad-form__element select[name=timein]');
   var userDialogTimeOut = document.querySelector('fieldset.ad-form__element select[name=timeout]');
   var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
+  var userDialogPreviewAvatar = document.querySelector('.ad-form-header__preview img');
+  var userDialogPreviewHouse = document.querySelector('.ad-form__photo img');
 
   var filterDialogType = document.querySelector('.map__filters select[name=housing-type]');
   var filterDialogPrice = document.querySelector('.map__filters select[name=housing-price]');
@@ -169,6 +173,8 @@
 
   var setInputToNull = function () {
     formAdForm.reset();
+    userDialogPreviewAvatar.src = NAME_FILE_MUFFIN_GREY;
+    userDialogPreviewHouse.src = "";
   };
 
   var setPageInitial = function () {
