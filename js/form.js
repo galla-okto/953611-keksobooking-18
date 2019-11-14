@@ -3,7 +3,7 @@
 (function () {
   var TEXT_NO_GUESTS_HOUSE = 'Допустимое значение - не для гостей';
 
-  var NAME_FILE_MUFFIN_GREY = "img/muffin-grey.svg";
+  var NAME_FILE_MUFFIN_GREY = 'img/muffin-grey.svg';
 
   var formAdForm = document.querySelector('.ad-form');
 
@@ -174,7 +174,7 @@
   var setInputToNull = function () {
     formAdForm.reset();
     userDialogPreviewAvatar.src = NAME_FILE_MUFFIN_GREY;
-    userDialogPreviewHouse.src = "";
+    userDialogPreviewHouse.src = '';
   };
 
   var setPageInitial = function () {
