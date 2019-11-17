@@ -174,8 +174,8 @@
     userDialogPrice.value = '';
     userDialogRooms.value = 1;
     userDialogCapacity.value = 1;
-    userDialogTimeIn.value = "12:00";
-    userDialogTimeOut.value = "12:00";
+    userDialogTimeIn.value = '12:00';
+    userDialogTimeOut.value = '12:00';
     userDialogAddress.value = 0;
     userDialogDescription.value = '';
 

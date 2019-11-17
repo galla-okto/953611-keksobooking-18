@@ -30,7 +30,7 @@
     } else {
 
       element.classList.add('visually-hidden');
-    };
+    }
   };
 
   var fillMapCardSimpleText = function (author, offer) {
@@ -53,7 +53,7 @@
     } else {
 
       rooms.classList.add('visually-hidden');
-    };
+    }
 
     var time = mapCardElement.querySelector('.popup__text--time');
     if (offer.checkin !== '0:00') {
@@ -63,7 +63,7 @@
     } else {
 
       time.classList.add('visually-hidden');
-    };
+    }
 
     mapCardElement.querySelector('.popup__description').textContent = getDescription(offer.description);
 
@@ -89,7 +89,7 @@
 
         featureList.appendChild(feature);
       });
-    };
+    }
   };
 
   var fillMapCardPhotos = function (offer) {
@@ -112,7 +112,7 @@
 
         photos.appendChild(photo);
       });
-    };
+    }
   };
 
   window.fillCard = function (evt) {
