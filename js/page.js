@@ -41,7 +41,7 @@
       userDialogAdForm.classList.remove('ad-form--disabled');
 
       adFormElements.forEach(function (element) {
-        element.removeAttribute('disabled', '');
+        element.removeAttribute('disabled');
       });
     } else {
       userDialogMap.classList.add('map--faded');
@@ -60,11 +60,13 @@
 
     window.isActive = true;
 
-    window.changeDiasbledOnPageElements(true);
+    setHadlerOnPageElements();
+
+    window.removeEventListenerMapPinMain();
 
     window.showRentalAds(window.rentalAds.slice(0, window.util.NUMBER_MAP_PINS));
 
-    setHadlerOnPageElements();
+    window.changeDiasbledOnPageElements(true);
   };
 
   var setInActivePage = function () {

@@ -22,41 +22,97 @@
     return description;
   };
 
+  var checkForEmpty = function (stringForCheck, element) {
+    if (stringForCheck !== '') {
+      element.classList.remove('visually-hidden');
+
+      element.textContent = stringForCheck;
+    } else {
+
+      element.classList.add('visually-hidden');
+    };
+  };
+
   var fillMapCardSimpleText = function (author, offer) {
-    mapCardElement.querySelector('.popup__title').textContent = offer.title;
-    mapCardElement.querySelector('.popup__text--address').textContent = offer.address;
-    mapCardElement.querySelector('.popup__text--price').innerHTML = offer.price + '&#8381/ночь';
+    var title = mapCardElement.querySelector('.popup__title');
+    checkForEmpty(offer.title, title);
+
+    var address = mapCardElement.querySelector('.popup__text--address');
+    checkForEmpty(offer.address, address);
+
+    var price = mapCardElement.querySelector('.popup__text--price');
+    checkForEmpty(offer.price, price);
+
     mapCardElement.querySelector('.popup__type').textContent = getTypeHouse(offer.type);
 
-    mapCardElement.querySelector('.popup__text--capacity').textContent = getRoomsAndGuests(offer.rooms, offer.guests);
-    mapCardElement.querySelector('.popup__text--time').textContent = getCheckInAndOut(offer.checkin, offer.checkout);
+    var rooms = mapCardElement.querySelector('.popup__text--capacity');
+    if (offer.rooms !== 0) {
+      rooms.classList.remove('visually-hidden');
+
+      rooms.textContent = getRoomsAndGuests(offer.rooms, offer.guests);
+    } else {
+
+      rooms.classList.add('visually-hidden');
+    };
+
+    var time = mapCardElement.querySelector('.popup__text--time');
+    if (offer.checkin !== '0:00') {
+      time.classList.remove('visually-hidden');
+
+      time.textContent = getCheckInAndOut(offer.checkin, offer.checkout);
+    } else {
+
+      time.classList.add('visually-hidden');
+    };
+
     mapCardElement.querySelector('.popup__description').textContent = getDescription(offer.description);
 
     mapCardElement.querySelector('.popup__avatar').src = author.avatar;
   };
 
   var fillMapCardFeatures = function (offer) {
-    var mapCardElement2 = similarMapCardTemplate.cloneNode(true);
+    var mapCardElementTemp = similarMapCardTemplate.cloneNode(true);
     var featureList = mapCardElement.querySelector('.popup__features');
     var feature = null;
 
-    featureList.innerHTML = '';
+    featureList.textContent = '';
 
-    offer.features.forEach(function (element) {
-      feature = mapCardElement2.querySelector('.popup__feature--' + element);
+    if (offer.features.length === 0) {
 
-      featureList.appendChild(feature);
-    });
+      featureList.classList.add('visually-hidden');
+    } else {
+
+      featureList.classList.remove('visually-hidden');
+
+      offer.features.forEach(function (element) {
+        feature = mapCardElementTemp.querySelector('.popup__feature--' + element);
+
+        featureList.appendChild(feature);
+      });
+    };
   };
 
   var fillMapCardPhotos = function (offer) {
     var photos = mapCardElement.querySelector('.popup__photos');
-    var photo = mapCardElement.querySelector('.popup__photo');
+    var photo = '';
 
-    offer.photos.forEach(function (element) {
-      photo.src = element;
-      photos.appendChild(photo);
-    });
+    photos.textContent = '';
+
+    if (offer.photos.length === 0) {
+
+      photos.classList.add('visually-hidden');
+    } else {
+
+      photos.classList.remove('visually-hidden');
+
+      offer.photos.forEach(function (element) {
+        var mapCardElementTemp = similarMapCardTemplate.cloneNode(true);
+        photo = mapCardElementTemp.querySelector('.popup__photo');
+        photo.src = element;
+
+        photos.appendChild(photo);
+      });
+    };
   };
 
   window.fillCard = function (evt) {
@@ -78,6 +134,7 @@
 
   var openCard = function () {
     mapCardElement.classList.remove('hidden');
+    mapCardElement.classList.add('map__pin--active');
 
     var popupClose = mapCardElement.querySelector('.popup__close');
     popupClose.addEventListener('click', onPopupCloseClick);
@@ -97,7 +154,7 @@
   };
 
   var onPopupCloseClick = function () {
-    mapCardElement.classList.add('hidden');
+    window.closePopup();
   };
 
 })();

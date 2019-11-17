@@ -16,6 +16,9 @@
   var userDialogAddress = document.querySelector('fieldset.ad-form__element input[name=address]');
   var userDialogPreviewAvatar = document.querySelector('.ad-form-header__preview img');
   var userDialogPreviewHouse = document.querySelector('.ad-form__photo img');
+  var userDialogTitle = document.querySelector('fieldset.ad-form__element input[name=title]');
+  var userDialogDescription = document.querySelector('fieldset.ad-form__element textarea[name=description]');
+  var userDialogFeatures = document.querySelectorAll('fieldset.ad-form__element input[name=features]');
 
   var filterDialogType = document.querySelector('.map__filters select[name=housing-type]');
   var filterDialogPrice = document.querySelector('.map__filters select[name=housing-price]');
@@ -69,24 +72,15 @@
   var getFilterPrice = function (element, housingPrice) {
     if (housingPrice === window.util.TypePriceMap['ANY'].min) {
 
-      return element.offer.price === element.offer.price;
+      return true;
 
-    } else if (housingPrice.toUpperCase() === Object.keys(window.util.TypePriceMap)[2]) {
+    } else if (housingPrice.toUpperCase() !== '') {
 
-      return ((element.offer.price >= window.util.TypePriceMap['MIDDLE'].min)
-      && (element.offer.price <= window.util.TypePriceMap['MIDDLE'].max));
-
-    } else if (housingPrice.toUpperCase() === Object.keys(window.util.TypePriceMap)[1]) {
-
-      return ((element.offer.price >= window.util.TypePriceMap['LOW'].min)
-      && (element.offer.price <= window.util.TypePriceMap['LOW'].max));
-
-    } else if (housingPrice.toUpperCase() === Object.keys(window.util.TypePriceMap)[3]) {
-
-      return ((element.offer.price >= window.util.TypePriceMap['HIGH'].min)
-      && (element.offer.price <= window.util.TypePriceMap['HIGH'].max));
+      return ((element.offer.price >= window.util.TypePriceMap[housingPrice.toUpperCase()].min)
+      && (element.offer.price <= window.util.TypePriceMap[housingPrice.toUpperCase()].max));
 
     }
+
     return true;
   };
 
@@ -136,6 +130,7 @@
   var showRentalAdsWithFilters = window.debounce(function () {
     var sameTypeRentalAds = filterRentalAds();
 
+    window.closePopup();
     window.deleteRentalAds();
     window.showRentalAds(sameTypeRentalAds.slice(0, window.util.NUMBER_MAP_PINS));
   });
@@ -172,8 +167,22 @@
   };
 
   var setInputToNull = function () {
-    formAdForm.reset();
     userDialogPreviewAvatar.src = NAME_FILE_MUFFIN_GREY;
+
+    userDialogTitle.value = '';
+    userDialogType.value = 'flat';
+    userDialogPrice.value = '';
+    userDialogRooms.value = 1;
+    userDialogCapacity.value = 1;
+    userDialogTimeIn.value = "12:00";
+    userDialogTimeOut.value = "12:00";
+    userDialogAddress.value = 0;
+    userDialogDescription.value = '';
+
+    userDialogFeatures.forEach(function (key) {
+      key.checked = false;
+    });
+
     userDialogPreviewHouse.src = '';
   };
 
@@ -208,10 +217,23 @@
 
   var onSubmitClick = function (evt) {
     window.upload(new FormData(formAdForm), onSubmitSuccess, onSubmitError);
+
+    evt.preventDefault();
+  };
+
+  var onResetClick = function (evt) {
+    setInputToNull();
+
+    window.setMapPinMainInitialCoords();
+
+    setAddressInitial();
+
     evt.preventDefault();
   };
 
   setAddressInitial();
 
   formAdForm.addEventListener('submit', onSubmitClick);
+
+  formAdForm.addEventListener('reset', onResetClick);
 })();
