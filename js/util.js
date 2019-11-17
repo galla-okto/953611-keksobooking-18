@@ -26,7 +26,7 @@
   };
   var TypePriceMap = {
     ANY: {min: 'any'},
-    LOW: {min: 0, max: 1000},
+    LOW: {min: 0, max: 10000},
     MIDDLE: {min: 10001, max: 50000},
     HIGH: {min: 50001, max: 9999999}
   };
@@ -43,10 +43,6 @@
     MinPrice: MinPrice,
     RoomGuestsMap: RoomGuestsMap,
     NO_GUESTS_HOUSE: NO_GUESTS_HOUSE,
-    TypePriceMap: TypePriceMap,
-
-    getRandom: function (max, min, including) {
-      return Math.round(Math.random() * (max - (min ? min : 0) - (including ? 1 : 0))) + (min ? min : 0);
-    }
+    TypePriceMap: TypePriceMap
   };
 })();

@@ -104,12 +104,18 @@
     }
   };
 
-  mapPinMain.addEventListener('mousedown', onMapInMouseDown);
-
-  mapPinMain.addEventListener('keydown', function (evt) {
+  var onMapInKeyDown = function (evt) {
     if (evt.keyCode === window.util.ENTER_KEYCODE) {
       window.setActivePage();
       window.setAddress(evt);
     }
-  });
+  };
+
+  window.removeEventListenerMapPinMain = function () {
+    mapPinMain.removeEventListener('keydown', onMapInKeyDown);
+  };
+
+  mapPinMain.addEventListener('mousedown', onMapInMouseDown);
+
+  mapPinMain.addEventListener('keydown', onMapInKeyDown);
 })();

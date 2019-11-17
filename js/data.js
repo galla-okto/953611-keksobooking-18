@@ -30,9 +30,9 @@
   };
 
   var onSuccessClick = function () {
-    var sccMessage = document.querySelector('.success');
+    var successMessage = document.querySelector('.success');
 
-    sccMessage.parentNode.removeChild(sccMessage);
+    successMessage.parentNode.removeChild(successMessage);
 
     document.removeEventListener('keydown', onSuccessEscPress);
   };
@@ -82,3 +82,4 @@
   window.load(onSuccessAds, window.onError);
 
 })();
+
