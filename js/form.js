@@ -111,7 +111,7 @@
     var housingGuests = filterDialogGuests.value;
     var housingFeatures = getFeatures();
 
-    var sameTypeRentalAds = window.rentalAds.filter(function (it) {
+    var sameTypeRentalAds = window.data.rentalAds.filter(function (it) {
       return (getFilterType(it, housingType)) &&
         (getFilterPrice(it, housingPrice)) &&
         (getFilterRooms(it, housingRooms)) &&

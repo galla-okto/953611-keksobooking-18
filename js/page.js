@@ -34,11 +34,16 @@
   };
 
   window.changeDiasbledOnPageElements = function (show) {
+    var mapFilterElements = userDialogMap.querySelectorAll('.map__filter');
     var adFormElements = userDialogAdForm.querySelectorAll('.ad-form__element');
 
     if (show) {
       userDialogMap.classList.remove('map--faded');
       userDialogAdForm.classList.remove('ad-form--disabled');
+
+      mapFilterElements.forEach(function (element) {
+        element.removeAttribute('disabled');
+      });
 
       adFormElements.forEach(function (element) {
         element.removeAttribute('disabled');
@@ -46,6 +51,10 @@
     } else {
       userDialogMap.classList.add('map--faded');
       userDialogAdForm.classList.add('ad-form--disabled');
+
+      mapFilterElements.forEach(function (element) {
+        element.setAttribute('disabled', '');
+      });
 
       adFormElements.forEach(function (element) {
         element.setAttribute('disabled', '');
@@ -64,7 +73,7 @@
 
     window.removeEventListenerMapPinMain();
 
-    window.showRentalAds(window.rentalAds.slice(0, window.util.NUMBER_MAP_PINS));
+    window.showRentalAds(window.data.rentalAds.slice(0, window.util.NUMBER_MAP_PINS));
 
     window.changeDiasbledOnPageElements(true);
   };

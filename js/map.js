@@ -11,7 +11,7 @@
     var fragment = document.createDocumentFragment();
 
     arrRentalAds.forEach(function (element) {
-      fragment.appendChild(window.renderMapIn(element, window.rentalAds.indexOf(element)));
+      fragment.appendChild(window.renderMapIn(element, window.data.rentalAds.indexOf(element)));
     });
 
     mapPins.appendChild(fragment);

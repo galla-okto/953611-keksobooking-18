@@ -7,6 +7,11 @@
   var MAP_HEIGHT = 750;
   var Y_MIN = 130 - MAPIN_HEIGHT;
   var Y_MAX = 630 - MAPIN_HEIGHT;
+  var rentalAds = [];
+
+  window.data = {
+    rentalAds: rentalAds
+  };
 
   window.const = {
     MAP_WIDTH: MAP_WIDTH,
@@ -23,10 +28,6 @@
 
   window.getMapinY = function (initialY) {
     return initialY + MAPIN_HEIGHT;
-  };
-
-  var onSuccessAds = function (rentalAds) {
-    window.rentalAds = rentalAds;
   };
 
   var onSuccessClick = function () {
@@ -79,7 +80,11 @@
     document.addEventListener('keydown', onErrorEscPress);
   };
 
-  window.load(onSuccessAds, window.onError);
+  window.onSuccessAds = function (rentalAds) {
+    window.data.rentalAds = rentalAds;
+  };
+
+  window.load(window.onSuccessAds, window.onError);
 
 })();
 

@@ -116,8 +116,8 @@
   };
 
   window.fillCard = function (evt) {
-    var currentOffer = window.rentalAds[evt.currentTarget.dataIndex].offer;
-    var currentAuthor = window.rentalAds[evt.currentTarget.dataIndex].author;
+    var currentOffer = window.data.rentalAds[evt.currentTarget.dataIndex].offer;
+    var currentAuthor = window.data.rentalAds[evt.currentTarget.dataIndex].author;
 
     if (currentOffer !== undefined) {
       fillMapCardSimpleText(currentAuthor, currentOffer);
@@ -128,13 +128,14 @@
 
       mapPins.insertAdjacentElement('afterend', mapCardElement);
 
+      evt.target.classList.add('map__pin--active');
+
       openCard();
     }
   };
 
   var openCard = function () {
     mapCardElement.classList.remove('hidden');
-    mapCardElement.classList.add('map__pin--active');
 
     var popupClose = mapCardElement.querySelector('.popup__close');
     popupClose.addEventListener('click', onPopupCloseClick);
