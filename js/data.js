@@ -80,11 +80,10 @@
     document.addEventListener('keydown', onErrorEscPress);
   };
 
-  window.onSuccessAds = function (rentalAds) {
-    window.data.rentalAds = rentalAds;
+  window.onSuccessAds = function (arrayAds) {
+    window.data.rentalAds = arrayAds;
   };
 
   window.load(window.onSuccessAds, window.onError);
 
 })();
-
